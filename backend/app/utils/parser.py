@@ -62,48 +62,142 @@ def extract_student_info(text):
 
     return info
 
+GRADE_TRANSLATIONS = {
+    "ru": {
+        "Отлично": "Отлично",
+        "Хорошо": "Хорошо",
+        "Удов": "Удовлетворительно",
+        "Зачет": "Зачет"
+    },
+    "kk": {
+        "Өте жақсы": "Өте жақсы",
+        "Жақсы": "Жақсы",
+        "Қанағат-лық": "Қанағат-лық",
+        "сынақ": "сынақ"
+    },
+    "en": {
+        "Excellent": "Excellent",
+        "Good": "Good",
+        "Sat": "Satisfactory",
+        "Satisfactory": "Satisfactory",
+        "passed attestation": "Pass"
+    }
+}
 
-def extract_courses(text):
+
+def extract_courses(text, lang_code):
     lines = text.splitlines()
     courses = []
     buffer = []
     course_number = 1
 
+    stop_keywords = [
+        "қорытынды аттестаттау", "кәсіптік практика", "итоговая аттестация",
+        "final certification", "has passed professional", "мaк хаттамасының",
+        "diploma work", "gpa", "выполнил", "дипломдық жұмыс"
+    ]
+
+    header_keywords = [
+        "наименование дисциплины", "кредиттер саны", "пайызбен",
+        "traditional", "дәстүрлі жүйемен", "course title", "cources"
+    ]
+
     def flush(buf):
+        if not buf:
+            return None
+
         joined = " ".join(buf).strip()
-        joined = re.sub(r'^\d+\s+', '', joined)
-        pattern = re.compile(
-            r'(?P<name>.+?)\s+'
-            r'(?P<credits>\d+)\s+(?P<percent>\d+\.\d)?\s*'
-            r'(?P<letter>[A-D][+-]?|F|зачет)\s*'
-            r'(?P<gpa>[\d.]+)?\s*'
-            r'(?P<trad>Хорошо|Удов|Отлично)?'
-        )
-        m = pattern.search(joined)
-        if m:
+
+        # Ключевые слова, по которым мы фильтруем "мусор"
+        stop_keywords = [
+            "наименование дисциплины", "кредиттер саны", "пайызбен",
+            "traditional", "дәстүрлі жүйемен", "course title", "cources",
+            "қорытынды аттестаттау", "кәсіптік практика", "итоговая аттестация",
+            "final certification", "has passed professional", "мaк хаттамасының",
+            "diploma work", "gpa", "выполнил", "дипломдық жұмыс"
+        ]
+        if any(kw in joined.lower() for kw in stop_keywords):
+            return None
+
+        # Удаление номера в начале строки
+        if re.match(r'^\d+\s+', joined):
+            joined = re.sub(r'^\d+\s+', '', joined)
+
+        # Обработка зачётов
+        if any(word in joined.lower() for word in ["passed attestation", "сынақ", "зачет", "өтті"]):
+            course_name = re.split(r'(passed attestation|сынақ|зачет|өтті)', joined, flags=re.IGNORECASE)[0].strip().title()
+            keyword = next((w for w in ["passed attestation", "сынақ", "өтті", "зачет"] if w in joined.lower()), None)
             return {
                 "code": None,
-                "course_name": m.group("name").title(),
+                "course_name": course_name,
+                "credits": None,
+                "percent": None,
+                "grade_letter": None,
+                "grade_point": None,
+                "grade_traditional": GRADE_TRANSLATIONS[lang_code].get(keyword, keyword),
+                "is_retake": "*" in course_name
+            }
+
+        # Гибкая регулярка
+        pattern = re.compile(
+            r'(?P<name>.+?)\s+'
+            r'(?P<credits>\d+)\s+'
+            r'(?P<percent>\d+\.\d)?\s*'
+            r'(?P<letter>[A-D][+-]?|F|зачет)?\s*'
+            r'(?P<gpa>[\d.]+)?\s*'
+            r'(?P<trad>[^«»"]+)?$'
+        )
+
+        m = pattern.search(joined)
+        if m:
+            trad_raw = (m.group("trad") or "").strip()
+
+            # Обрезаем мусор после традиционной оценки
+            trad_raw = re.split(r'\d{2}\.\d{2}\.\d{4}|platonus|https?://', trad_raw, flags=re.IGNORECASE)[0].strip()
+            trad_raw = " ".join(trad_raw.split()[:2])  # максимум два слова
+
+            translated = GRADE_TRANSLATIONS.get(lang_code, {}).get(trad_raw, trad_raw)
+
+            def safe_float(val):
+                try:
+                    return float(val)
+                except:
+                    return None
+
+            return {
+                "code": None,
+                "course_name": m.group("name").strip().title(),
                 "credits": int(m.group("credits")),
-                "percent": float(m.group("percent")) if m.group("percent") else None,
+                "percent": safe_float(m.group("percent")),
                 "grade_letter": m.group("letter"),
-                "grade_point": float(m.group("gpa")) if m.group("gpa") else None,
-                "grade_traditional": m.group("trad") or "Зачет",
+                "grade_point": safe_float(m.group("gpa")),
+                "grade_traditional": translated,
                 "is_retake": "*" in m.group("name")
             }
+
+        print("⚠️ Не удалось распарсить:", joined)
         return None
+
 
     start = False
     for line in lines:
         line = line.strip()
         if not line:
             continue
-        if "Пәннің атауы" in line or "Cources" in line:
+
+        # Запустить парсинг после заголовка
+        if not start and any(kw in line.lower() for kw in header_keywords):
             start = True
             continue
         if not start:
             continue
-        if re.match(r'^\d+\s+[А-Яа-яA-Za-z]', line):
+
+        # Пропустить строки-заголовки и повторяющиеся подписи
+        if any(kw in line.lower() for kw in header_keywords):
+            continue
+
+        # Если новая строка начинается с номера, значит, курс
+        if re.match(r'^\d+\s+[^\s]', line):
             if buffer:
                 course = flush(buffer)
                 if course:
@@ -113,6 +207,7 @@ def extract_courses(text):
                 buffer = []
         buffer.append(line)
 
+    # Последний буфер
     if buffer:
         course = flush(buffer)
         if course:
@@ -122,11 +217,21 @@ def extract_courses(text):
     return courses
 
 
+
+def detect_language(text):
+    if "Жақсы" in text or "Қанағат-лық" in text:
+        return "kk"
+    elif "Good" in text or "passed attestation" in text:
+        return "en"
+    else:
+        return "ru"
+
 def parse_transcript(pdf_path):
     text = extract_transcript_text(pdf_path)
+    lang = detect_language(text)
     return {
         "student_id": str(uuid.uuid4()),
         "parsed_at": datetime.now().isoformat(),
         "student_info": extract_student_info(text),
-        "courses": extract_courses(text)
+        "courses": extract_courses(text, lang)
     }
