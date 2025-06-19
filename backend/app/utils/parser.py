@@ -108,7 +108,6 @@ def extract_courses(text, lang_code):
 
         joined = " ".join(buf).strip()
 
-        # Ключевые слова, по которым мы фильтруем "мусор"
         stop_keywords = [
             "наименование дисциплины", "кредиттер саны", "пайызбен",
             "traditional", "дәстүрлі жүйемен", "course title", "cources",
@@ -119,18 +118,26 @@ def extract_courses(text, lang_code):
         if any(kw in joined.lower() for kw in stop_keywords):
             return None
 
-        # Удаление номера в начале строки
         if re.match(r'^\d+\s+', joined):
             joined = re.sub(r'^\d+\s+', '', joined)
 
-        # Обработка зачётов
         if any(word in joined.lower() for word in ["passed attestation", "сынақ", "зачет", "өтті"]):
-            course_name = re.split(r'(passed attestation|сынақ|зачет|өтті)', joined, flags=re.IGNORECASE)[0].strip().title()
             keyword = next((w for w in ["passed attestation", "сынақ", "өтті", "зачет"] if w in joined.lower()), None)
+
+            before_keyword = re.split(rf'\b{keyword}\b', joined, flags=re.IGNORECASE)[0].strip()
+
+            match = re.search(r'(.+?)\s+(\d+)$', before_keyword)
+            if match:
+                course_name = match.group(1).strip().title()
+                credits = int(match.group(2))
+            else:
+                course_name = before_keyword.title()
+                credits = None
+
             return {
                 "code": None,
                 "course_name": course_name,
-                "credits": None,
+                "credits": credits,
                 "percent": None,
                 "grade_letter": None,
                 "grade_point": None,
@@ -138,23 +145,21 @@ def extract_courses(text, lang_code):
                 "is_retake": "*" in course_name
             }
 
-        # Гибкая регулярка
+
         pattern = re.compile(
             r'(?P<name>.+?)\s+'
             r'(?P<credits>\d+)\s+'
-            r'(?P<percent>\d+\.\d)?\s*'
-            r'(?P<letter>[A-D][+-]?|F|зачет)?\s*'
+            r'(?P<percent>\d+\.\d+)\s+'
+            r'(?P<letter>[A-D][+-]?|F)?\s*'
             r'(?P<gpa>[\d.]+)?\s*'
-            r'(?P<trad>[^«»"]+)?$'
+            r'(?P<trad>[А-Яа-яЁёA-Za-z ]+)?'
         )
 
         m = pattern.search(joined)
         if m:
             trad_raw = (m.group("trad") or "").strip()
-
-            # Обрезаем мусор после традиционной оценки
             trad_raw = re.split(r'\d{2}\.\d{2}\.\d{4}|platonus|https?://', trad_raw, flags=re.IGNORECASE)[0].strip()
-            trad_raw = " ".join(trad_raw.split()[:2])  # максимум два слова
+            trad_raw = " ".join(trad_raw.split()[:2])
 
             translated = GRADE_TRANSLATIONS.get(lang_code, {}).get(trad_raw, trad_raw)
 
@@ -177,6 +182,7 @@ def extract_courses(text, lang_code):
 
         print("⚠️ Не удалось распарсить:", joined)
         return None
+    
 
 
     start = False
@@ -185,18 +191,15 @@ def extract_courses(text, lang_code):
         if not line:
             continue
 
-        # Запустить парсинг после заголовка
         if not start and any(kw in line.lower() for kw in header_keywords):
             start = True
             continue
         if not start:
             continue
 
-        # Пропустить строки-заголовки и повторяющиеся подписи
         if any(kw in line.lower() for kw in header_keywords):
             continue
 
-        # Если новая строка начинается с номера, значит, курс
         if re.match(r'^\d+\s+[^\s]', line):
             if buffer:
                 course = flush(buffer)
@@ -207,7 +210,6 @@ def extract_courses(text, lang_code):
                 buffer = []
         buffer.append(line)
 
-    # Последний буфер
     if buffer:
         course = flush(buffer)
         if course:

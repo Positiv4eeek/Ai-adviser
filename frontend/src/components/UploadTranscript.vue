@@ -48,7 +48,7 @@
   </button>
 </div>
 <h3 class="text-xl font-semibold mb-2">Курсы</h3>
-
+    
         <table class="w-full text-sm border border-collapse">
           <thead class="bg-gray-100">
             <tr>
@@ -149,6 +149,15 @@ function clearResult() {
 
 <style scoped>
 table {
+  border-collapse: collapse;
+  width: 100%;
   border: 1px solid #ccc;
 }
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  text-align: center;
+}
 </style>
+
