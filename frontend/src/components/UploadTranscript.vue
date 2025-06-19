@@ -1,19 +1,41 @@
 <template>
   <div class="p-6 max-w-4xl mx-auto bg-white min-h-screen text-gray-900">
     <div class="mb-6 flex justify-center items-start mt-2">
-  <img src="/narxoz-logo.svg" alt="Narxoz Logo" class="h-10 w-auto" />
-</div>
+      <img src="/narxoz-logo.svg" alt="Narxoz Logo" class="h-10 w-auto" />
+    </div>
 
     <h2 class="text-2xl font-bold mb-6 text-center">Загрузить транскрипт</h2>
 
     <div class="text-center mb-6 space-y-4">
-      <input type="file" accept="application/pdf" @change="onFileChange" class="block mx-auto" />
-      <button
-        @click="upload"
-        :disabled="!file || loading"
-        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50">
-  {{ loading ? 'Загрузка...' : 'Отправить' }}
-      </button>
+      <div class="flex flex-col items-center gap-4">
+        <label
+          for="file-upload"
+          class="cursor-pointer inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-5 py-3 rounded border border-dashed border-gray-400 transition"
+        >
+          <svg class="w-5 h-5 text-black-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12V4m0 0l-4 4m4-4l4 4" />
+          </svg>
+          <span class="text-sm text-gray-700">
+            {{ file?.name || "Выберите PDF файл транскрипта" }}
+          </span>
+        </label>
+        <input
+          id="file-upload"
+          type="file"
+          accept="application/pdf"
+          @change="onFileChange"
+          class="hidden"
+        />
+
+        <button
+          @click="upload"
+          :disabled="!file || loading"
+          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+        >
+          {{ loading ? 'Загрузка...' : 'Отправить' }}
+        </button>
+      </div>
     </div>
 
     <div v-if="result" class="mt-8 space-y-6">
@@ -34,21 +56,21 @@
 
       <div>
         <div class="flex justify-center sm:justify-end gap-4 mt-8 mb-8 px-4">
-  <button
-    @click="downloadJSON"
-    class="text-xs bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
-  >
-    Скачать JSON
-  </button>
-  <button
-    @click="clearResult"
-    class="text-xs bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
-  >
-    Очистить
-  </button>
-</div>
-<h3 class="text-xl font-semibold mb-2">Курсы</h3>
-    
+          <button
+            @click="downloadJSON"
+            class="text-xs bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+          >
+            Скачать JSON
+          </button>
+          <button
+            @click="clearResult"
+            class="text-xs bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+          >
+            Очистить
+          </button>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Курсы</h3>
+
         <table class="w-full text-sm border border-collapse">
           <thead class="bg-gray-100">
             <tr>
@@ -146,18 +168,3 @@ function clearResult() {
   localStorage.removeItem('transcriptResult')
 }
 </script>
-
-<style scoped>
-table {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ccc;
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 4px 8px;
-  text-align: center;
-}
-</style>
-
