@@ -89,7 +89,8 @@ def extract_student_info(text):
         if keys['language'] in line:
             parts = [p.strip() for p in line.split('/')]
             if lang == 'kk':
-                info['language'] = parts[-3]
+                raw = parts[2]
+                info['language'] = ' '.join(raw.split()[-2:])
             elif lang == 'en':
                 info['language'] = parts[-2]
             else:
