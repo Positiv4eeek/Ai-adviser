@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
-from app.utils.parser import parse_curriculum
+from app.utils.parse_curriculum import parse_curriculum
 import tempfile
 
 router = APIRouter()
