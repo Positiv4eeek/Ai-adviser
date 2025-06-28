@@ -4,7 +4,7 @@ import tempfile
 
 router = APIRouter()
 
-@router.post("/upload-curriculum")
+@router.post("/upload_curriculum")
 async def upload_curriculum(file: UploadFile = File(...)):
     suffix = file.filename.lower().endswith('.csv') and '.csv' or '.xlsx'
     tmp = tempfile.NamedTemporaryFile(delete=False, suffix=suffix)
