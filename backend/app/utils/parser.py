@@ -2,6 +2,7 @@ import fitz
 import re
 import uuid
 from datetime import datetime
+import pandas as pd
 
 def extract_transcript_text(pdf_path):
     with fitz.open(pdf_path) as doc:

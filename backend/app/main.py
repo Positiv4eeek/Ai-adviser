@@ -1,8 +1,12 @@
-from fastapi import FastAPI, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware
-from app.utils.parser import parse_transcript
-import tempfile
 import os
+import tempfile
+import math
+
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.utils.parser import parse_transcript
+from app.utils.parse_curriculum import parse_curriculum
 
 app = FastAPI()
 
@@ -25,3 +29,30 @@ async def upload_transcript(file: UploadFile = File(...)):
         return parsed
     finally:
         os.unlink(tmp_path)
+
+def sanitize(obj):
+    if isinstance(obj, float) and math.isnan(obj):
+        return None
+    if isinstance(obj, dict):
+        return {k: sanitize(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [sanitize(v) for v in obj]
+    return obj
+
+@app.post("/upload-curriculum")
+async def upload_curriculum(file: UploadFile = File(...)):
+    ext = os.path.splitext(file.filename)[1].lower() or ".xlsx"
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=ext)
+    try:
+        content = await file.read()
+        tmp.write(content)
+        tmp.close()
+        curriculum = parse_curriculum(tmp.name)
+        return sanitize(curriculum)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    finally:
+        try:
+            os.unlink(tmp.name)
+        except:
+            pass
