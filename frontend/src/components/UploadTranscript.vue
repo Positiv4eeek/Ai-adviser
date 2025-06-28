@@ -193,7 +193,12 @@
             <th class="border px-2 py-1">{{ t('block_code') }}</th>
             <th class="border px-2 py-1">{{ t('discipline_code') }}</th>
             <th class="border px-2 py-1">{{ t('discipline_name') }}</th>
+            <th class="border px-2 py-1">{{ t('discipline_type') }}</th>
+            <th class="border px-2 py-1">{{ t('prerequisite') }}</th>
             <th class="border px-2 py-1">{{ t('credits') }}</th>
+            <th class="border px-2 py-1">{{ t('contact_hours') }}</th>
+            <th class="border px-2 py-1">{{ t('exam_type') }}</th>
+            <th class="border px-2 py-1">{{ t('module') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -206,7 +211,12 @@
             <td class="border px-2 py-1 text-center">{{ c.block }}</td>
             <td class="border px-2 py-1 text-center">{{ c.discipline_code }}</td>
             <td class="border px-2 py-1">{{ c.discipline_name }}</td>
+            <td class="border px-2 py-1">{{ c.discipline_type }}</td>
+            <td class="border px-2 py-1">{{ c.prerequisite }}</td>
             <td class="border px-2 py-1 text-center">{{ c.credits }}</td>
+            <td class="border px-2 py-1 text-center">{{ c.contact_hours }}</td>
+            <td class="border px-2 py-1 text-center">{{ c.exam_type }}</td>
+            <td class="border px-2 py-1 text-center">{{ c.module }}</td>
           </tr>
           <tr v-if="!curriculumResult.courses[activeYear][activeSem].length">
             <td colspan="5" class="border px-2 py-1 text-center italic">
@@ -245,7 +255,12 @@
               <th class="border px-2 py-1">{{ t('block_code') }}</th>
               <th class="border px-2 py-1">{{ t('discipline_code') }}</th>
               <th class="border px-2 py-1">{{ t('discipline_name') }}</th>
+              <th class="border px-2 py-1">{{ t('discipline_type') }}</th>
+              <th class="border px-2 py-1">{{ t('prerequisite') }}</th>
               <th class="border px-2 py-1">{{ t('credits') }}</th>
+              <th class="border px-2 py-1">{{ t('contact_hours') }}</th>
+              <th class="border px-2 py-1">{{ t('exam_type') }}</th>
+              <th class="border px-2 py-1">{{ t('module') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -258,7 +273,12 @@
               <td class="border px-2 py-1 text-center">{{ e.block }}</td>
               <td class="border px-2 py-1 text-center">{{ e.discipline_code }}</td>
               <td class="border px-2 py-1">{{ e.discipline_name }}</td>
+              <td class="border px-2 py-1">{{ e.discipline_type }}</td>
+              <td class="border px-2 py-1">{{ e.prerequisite }}</td>
               <td class="border px-2 py-1 text-center">{{ e.credits }}</td>
+              <td class="border px-2 py-1 text-center">{{ e.contact_hours }}</td>
+              <td class="border px-2 py-1 text-center">{{ e.exam_type }}</td>
+              <td class="border px-2 py-1 text-center">{{ e.module }}</td>
             </tr>
           </tbody>
         </table>
@@ -318,8 +338,13 @@ const i18n = {
     group: 'Группа',
     no_courses: 'Нет курсов',
     block_code: 'Код блока',
-    discipline_code: 'Код дисциплины',
+    discipline_code: 'Шифр дисциплины',
     discipline_name: 'Название программы',
+    discipline_type: 'Цикл дисциплин',
+    module: 'Шифр модуля',
+    exam_type: 'Тип экзамена',
+    contact_hours: 'Контактных часов в неделю',
+    prerequisite: 'Предварительное требование',
     fall: 'Осень',
     spring: 'Весна',
     course_short: 'курс'
@@ -354,8 +379,13 @@ const i18n = {
     group: 'Топ',
     no_courses: 'Курс жоқ',
     block_code: 'Блок коды',
-    discipline_code: 'Пән коды',
+    discipline_code: 'Дисциплина коды',
     discipline_name: 'Бағдарлама атауы',
+    discipline_type: 'Дисциплина түрі',
+    module: 'Модуль коды',
+    exam_type: 'Емтихан түрі',
+    contact_hours: 'Аптасына байланыс сағаттары',
+    prerequisite: 'Алдын ала талап',
     fall: 'Күз',
     spring: 'Көктем',
     course_short: 'курс'
@@ -390,8 +420,13 @@ const i18n = {
     group: 'Group',
     no_courses: 'No courses',
     block_code: 'Block Code',
-    discipline_code: 'Discipline Code',
+    discipline_code: 'Discipline cipher',
     discipline_name: 'Program Name',
+    discipline_type: 'Discipline Type',
+    module: 'Module Code',
+    exam_type: 'Exam Type',
+    contact_hours: 'Contact hours per week',
+    prerequisite: 'Prerequisite',
     fall: 'Fall',
     spring: 'Spring',
     course_short: 'course'
