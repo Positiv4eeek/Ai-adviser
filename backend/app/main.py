@@ -2,13 +2,24 @@ import os
 import tempfile
 import math
 
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.utils.parser import parse_transcript
 from app.utils.parse_curriculum import parse_curriculum
 
-app = FastAPI()
+from app.api.endpoints.auth import router as auth_router
+from app.db import Base, engine
+
+from app.utils.auth import get_current_user
+
+Base.metadata.create_all(bind=engine)
+
+
+app = FastAPI(docs_url='/docs', redoc_url='/redoc', openapi_url='/openapi.json')
+
+
+app.include_router(auth_router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -56,3 +67,11 @@ async def upload_curriculum(file: UploadFile = File(...)):
             os.unlink(tmp.name)
         except:
             pass
+
+@app.get("/me")
+def read_current_user(current_user = Depends(get_current_user)):
+    return {
+        "first_name": current_user.first_name,
+        "last_name":  current_user.last_name,
+        "role":       current_user.role.value
+    }
