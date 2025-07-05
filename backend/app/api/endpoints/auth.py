@@ -1,16 +1,18 @@
+import secrets
+from datetime import datetime, timedelta
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr
 
-from app.db import Base, engine, get_db
-from app.models import User, UserRole
+from app.db import get_db, settings
+from app.models import User, UserRole, EmailVerification
 from app.utils.auth import create_access_token
+from app.utils.email import fm, MessageSchema
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
-
-Base.metadata.create_all(bind=engine)
 
 class RegisterRequest(BaseModel):
     first_name: str
@@ -19,27 +21,78 @@ class RegisterRequest(BaseModel):
     password: str
     role: UserRole = UserRole.student
 
+class VerifyRequest(BaseModel):
+    email: EmailStr
+    code: str
+
+
 @router.post("/register", status_code=201)
-def register(data: RegisterRequest, db: Session = Depends(get_db)):
-    
+async def register(data: RegisterRequest, db: Session = Depends(get_db)):
+
     if db.query(User).filter(User.email == data.email).first():
-        raise HTTPException(status_code=400, detail="Email already registered")
-    
+        raise HTTPException(400, "Email already registered")
+
+    db.query(EmailVerification).filter(
+        EmailVerification.email == data.email
+    ).delete()
+
+    code = f"{secrets.randbelow(10**6):06d}"
+    ev = EmailVerification(
+        email      = data.email,
+        first_name = data.first_name,
+        last_name  = data.last_name,
+        password   = User.hash_password(data.password),
+        role       = data.role,
+        code       = code,
+        expires_at = datetime.utcnow() + timedelta(hours=1),
+    )
+    db.add(ev)
+    db.commit()
+
+    body = (
+      f"Ваш код подтверждения: {code}"
+    )
+    msg = MessageSchema(
+        subject="Подтвердите вашу почту",
+        recipients=[data.email],
+        body=body,
+        subtype="plain"
+    )
+    await fm.send_message(msg)
+
+    return {"msg": "Код подтверждения отправлен на вашу почту"}
+
+
+@router.post("/verify", status_code=200)
+def verify(req: VerifyRequest, db: Session = Depends(get_db)):
+
+    ev = db.query(EmailVerification).filter(
+        EmailVerification.email == req.email,
+        EmailVerification.code  == req.code
+    ).first()
+
+    if not ev or ev.is_expired():
+        raise HTTPException(400, "Неверный код или он истёк")
+
     user = User(
-        first_name=data.first_name,
-        last_name=data.last_name,
-        email=data.email,
-        hashed_password=User.hash_password(data.password),
-        role=data.role
+        first_name      = ev.first_name,
+        last_name       = ev.last_name,
+        email           = ev.email,
+        hashed_password = ev.password,
+        role            = ev.role,
     )
     db.add(user)
+
+    db.delete(ev)
     db.commit()
-    return {"msg": f"User '{data.email}' registered as {data.role.value}"}
+
+    return {"msg": "Email подтверждён, аккаунт создан"}
+
 
 @router.post("/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends(),
           db: Session = Depends(get_db)):
-    
+
     user = db.query(User).filter(User.email == form_data.username).first()
     if not user or not user.verify_password(form_data.password):
         raise HTTPException(

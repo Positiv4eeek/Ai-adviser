@@ -4,7 +4,17 @@ export default {
     login: 'Кіру',
     register: 'Тіркелу',
     logout: 'Шығу',
-    dashboard: 'Панель басқару'
+    dashboard: 'Панель басқару',
+    verify: 'Растау', 
+  },
+  verify: {
+    email:  'Пошта',
+    code: 'Растау коды',
+    submit: 'Растау',
+    loading: 'Тексерілуде…',
+    success: 'Сәтті расталды!',
+    redirecting: 'Бағыттау…',
+    error: 'Растау мүмкін болмады'
   },
   register: {
     firstName: 'Аты',
@@ -14,7 +24,8 @@ export default {
     submit: 'Тіркелу',
     loading: 'Жүктелуде...',
     success: 'Тіркелу сәтті өтті! Кіру бетіне бағытталуда…',
-    error: 'Тіркелу сәтсіз аяқталды'
+    error: 'Тіркелу сәтсіз аяқталды',
+    verificationSent: 'Растау сілтемесі поштасына жіберілді.'
   },
   home: {
     welcome: 'Қош келдіңіз',

@@ -4,7 +4,17 @@ export default {
     login: 'Login',
     register: 'Register',
     logout: 'Logout',
-    dashboard: 'Dashboard'
+    dashboard: 'Dashboard',
+    verify:    'Verify',
+  },
+  verify: {
+    email: 'Email',
+    code: 'Verification Code',
+    submit: 'Verify',
+    loading: 'Verifying…',
+    success: 'Successfully verified!',
+    redirecting: 'Redirecting…',
+    error: 'Verification failed'
   },
   register: {
     firstName: 'First Name',
@@ -14,7 +24,8 @@ export default {
     submit: 'Register',
     loading: 'Loading...', 
     success: 'Registration successful!',
-    error: 'Registration failed' 
+    error: 'Registration failed',
+    verificationSent: 'A verification email has been sent. Please check your inbox.'
   },
   login: {
     email: 'Email',

@@ -9,7 +9,7 @@ import messagesRU from './locales/ru.js'
 import messagesEN from './locales/en.js'
 
 
-axios.defaults.baseURL = import.meta.env.VITE_API_URL
+axios.defaults.baseURL = import.meta.env.vite_api_url
 const token = localStorage.getItem('token')
 if (token) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`

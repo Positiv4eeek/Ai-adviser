@@ -3,11 +3,13 @@ import Home      from '@/views/Home.vue'
 import Login     from '@/views/Login.vue'
 import Register  from '@/views/Register.vue'
 import Dashboard from '@/views/Dashboard.vue'
+import Verify    from '@/views/Verify.vue'
 
 const routes = [
   { path: '/',         component: Home },
   { path: '/login',    component: Login },
   { path: '/register', component: Register },
+  { path: '/verify',  component: Verify,    name: 'Verify' },
   { 
     path: '/dashboard',
     component: Dashboard,
