@@ -33,58 +33,63 @@ export default {
     role: 'Рөлі: {role}'
   },
   upload: {
-    title: 'Транскрипт пен оқу жоспарын жүктеу',
-    transcript: 'Транскриптті жүктеу',
-    curriculum: 'Оқу жоспарын жүктеу',
-    choosePdf: 'PDF таңдаңыз',
-    chooseXlsx: 'XLSX таңдаңыз',
+    upload_transcript_and_curriculum: 'Транскрипт пен оқу жоспарын жүктеу',
+    transcript_upload: 'Транскрипт',
+    choose_pdf: 'PDF таңдаңыз',
+    sending: 'Жіберілуде...',
     send: 'Жіберу',
-    sending: 'Жіберілуде...'
+    curriculum_upload: 'Оқу жоспары',
+    choose_xlsx: 'XLSX таңдаңыз',
   },
   student: {
-    infoTitle: 'Студент туралы мәлімет',
+    student_info: 'Студент туралы ақпарат',
     name: 'Аты-жөні',
     faculty: 'Факультет',
-    programCode: 'Бағдарлама коды',
-    programName: 'Бағдарлама атауы',
-    programGroup: 'Бағдарлама тобы',
-    entryYear: 'Қабылданған жылы',
+    program_code: 'Бағдарлама коды',
+    program_name: 'Бағдарлама атауы',
+    program_group: 'Бағдарлама тобы',
+    entry_year: 'Қабылдау жылы',
     language: 'Оқу тілі',
-    gpa: 'Орташа балл',
-    totalCredits: 'Барлық кредиттер'
+    gpa: 'Жалпы орта балл',
+    total_credits: 'Жалпы кредиттер',
   },
   courses: {
-    title: 'Курстар',
+    courses: 'Курстар',
+    course_name: 'Курс атауы',
+    credits: 'Кредиттер',
+    traditional: 'Дәстүрлі',
+    retake: 'Қайталау',
     headers: {
       index: '№',
-      courseName: 'Курс атауы',
-      credits: 'Кредиттер',
       percent: '%',
-      traditional: 'Дәстүрлі баға',
-      retake: 'Қайта тапсыру'
+      traditional: 'Дәстүрлі',
+      blockCode: 'Блок коды',
+      disciplineCode: 'Дисциплина коды',
+      disciplineName: 'Бағдарлама атауы',
+      disciplineType: 'Дисциплина түрі',
+      prerequisite: 'Алдын ала талап',
+      contactHours: 'Аптасына байланыс сағаттары',
+      examType: 'Емтихан түрі',
+      module: 'Модуль коды',
+      credits: 'Кредиттер',
     }
   },
   curriculum: {
-    metadataTitle: 'Оқу жоспарының деректері',
-    headers: {
-      programCode: 'Бағдарлама коды',
-      programName: 'Бағдарлама атауы',
-      intakeYear: 'Набор жылы',
-      totalCredits: 'Барлық кредиттер'
-    }
+    curriculum_metadata: 'Оқу жоспарының деректері',
+    intake_year: 'Қабылдау жылы',
+    total_credits: 'Жалпы кредиттер',
   },
   tabs: {
-    yearsLabel: 'Курс',
+    course_short: 'курс',
     fall: 'Күз',
     spring: 'Көктем',
-    courseShort: 'курс'
   },
   electives: {
-    title: 'Элективтер',
-    groupLabel: 'Топ'
+    electives: 'Элективтер',
+    group: 'Топ',
   },
   general: {
-    downloadJson: 'JSON жүктеу',
-    noCourses: 'Курстар жоқ'
+    download_json: 'JSON жүктеу',
+    no_courses: 'Курс жоқ',
   }
 }

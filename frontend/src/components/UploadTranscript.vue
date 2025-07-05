@@ -1,20 +1,25 @@
 <template>
   <div class="p-6 max-w-5xl mx-auto bg-white min-h-screen text-gray-900">
+
     <!-- Title -->
     <h2 class="text-2xl font-bold mb-6 text-center">
-      {{ $t('upload.title') }}
+      {{ $t('upload.upload_transcript_and_curriculum') }}
     </h2>
 
     <!-- Upload Panels -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
       <!-- Transcript Upload -->
       <div class="space-y-4">
-        <h3 class="font-semibold text-lg mb-2">{{ $t('upload.transcript') }}</h3>
+        <h3 class="font-semibold text-lg mb-2">
+          {{ $t('upload.transcript_upload') }}
+        </h3>
         <label
           for="trans-upload"
           class="cursor-pointer flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded border border-dashed border-gray-400"
         >
-          <span>{{ transcriptFile?.name || $t('upload.choosePdf') }}</span>
+          <span>
+            {{ transcriptFile?.name || $t('upload.choose_pdf') }}
+          </span>
           <input
             id="trans-upload"
             type="file"
@@ -34,12 +39,16 @@
 
       <!-- Curriculum Upload -->
       <div class="space-y-4">
-        <h3 class="font-semibold text-lg mb-2">{{ $t('upload.curriculum') }}</h3>
+        <h3 class="font-semibold text-lg mb-2">
+          {{ $t('upload.curriculum_upload') }}
+        </h3>
         <label
           for="curr-upload"
           class="cursor-pointer flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded border border-dashed border-gray-400"
         >
-          <span>{{ curriculumFile?.name || $t('upload.chooseXlsx') }}</span>
+          <span>
+            {{ curriculumFile?.name || $t('upload.choose_xlsx') }}
+          </span>
           <input
             id="curr-upload"
             type="file"
@@ -63,56 +72,29 @@
 
     <!-- Transcript Result -->
     <div v-if="transcriptResult" class="mb-12">
-      <h3 class="text-xl font-semibold mb-4">{{ $t('student.infoTitle') }}</h3>
+      <h3 class="text-xl font-semibold mb-4">{{ $t('student.student_info') }}</h3>
       <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 rounded shadow mb-6">
-        <div>
-          <dt class="font-medium">{{ $t('student.name') }}</dt>
-          <dd>{{ transcriptResult.student_info.name }}</dd>
-        </div>
-        <div>
-          <dt class="font-medium">{{ $t('student.faculty') }}</dt>
-          <dd>{{ transcriptResult.student_info.faculty }}</dd>
-        </div>
-        <div>
-          <dt class="font-medium">{{ $t('student.programCode') }}</dt>
-          <dd>{{ transcriptResult.student_info.program_code }}</dd>
-        </div>
-        <div>
-          <dt class="font-medium">{{ $t('student.programName') }}</dt>
-          <dd>{{ transcriptResult.student_info.program_name }}</dd>
-        </div>
-        <div>
-          <dt class="font-medium">{{ $t('student.programGroup') }}</dt>
-          <dd>{{ transcriptResult.student_info.program_group }}</dd>
-        </div>
-        <div>
-          <dt class="font-medium">{{ $t('student.entryYear') }}</dt>
-          <dd>{{ transcriptResult.student_info.entry_year }}</dd>
-        </div>
-        <div>
-          <dt class="font-medium">{{ $t('student.language') }}</dt>
-          <dd>{{ transcriptResult.student_info.language }}</dd>
-        </div>
-        <div>
-          <dt class="font-medium">{{ $t('student.gpa') }}</dt>
-          <dd>{{ transcriptResult.student_info.gpa }}</dd>
-        </div>
-        <div>
-          <dt class="font-medium">{{ $t('student.totalCredits') }}</dt>
-          <dd>{{ transcriptResult.student_info.total_credits }}</dd>
-        </div>
+        <div><dt class="font-medium">{{ $t('student.name') }}</dt><dd>{{ transcriptResult.student_info.name }}</dd></div>
+        <div><dt class="font-medium">{{ $t('student.faculty') }}</dt><dd>{{ transcriptResult.student_info.faculty }}</dd></div>
+        <div><dt class="font-medium">{{ $t('student.program_code') }}</dt><dd>{{ transcriptResult.student_info.program_code }}</dd></div>
+        <div><dt class="font-medium">{{ $t('student.program_name') }}</dt><dd>{{ transcriptResult.student_info.program_name }}</dd></div>
+        <div><dt class="font-medium">{{ $t('student.program_group') }}</dt><dd>{{ transcriptResult.student_info.program_group }}</dd></div>
+        <div><dt class="font-medium">{{ $t('student.entry_year') }}</dt><dd>{{ transcriptResult.student_info.entry_year }}</dd></div>
+        <div><dt class="font-medium">{{ $t('student.language') }}</dt><dd>{{ transcriptResult.student_info.language }}</dd></div>
+        <div><dt class="font-medium">{{ $t('student.gpa') }}</dt><dd>{{ transcriptResult.student_info.gpa }}</dd></div>
+        <div><dt class="font-medium">{{ $t('student.total_credits') }}</dt><dd>{{ transcriptResult.student_info.total_credits }}</dd></div>
       </dl>
 
-      <h3 class="text-xl font-semibold mb-2">{{ $t('courses.title') }}</h3>
+      <h3 class="text-xl font-semibold mb-2">{{ $t('courses.courses') }}</h3>
       <table class="w-full text-sm border border-collapse mb-4">
         <thead class="bg-gray-100">
           <tr>
             <th class="border px-2 py-1">{{ $t('courses.headers.index') }}</th>
-            <th class="border px-2 py-1">{{ $t('courses.headers.courseName') }}</th>
+            <th class="border px-2 py-1">{{ $t('courses.headers.disciplineName') }}</th>
             <th class="border px-2 py-1">{{ $t('courses.headers.credits') }}</th>
             <th class="border px-2 py-1">{{ $t('courses.headers.percent') }}</th>
             <th class="border px-2 py-1">{{ $t('courses.headers.traditional') }}</th>
-            <th class="border px-2 py-1">{{ $t('courses.headers.retake') }}</th>
+            <th class="border px-2 py-1">{{ $t('courses.retake') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -136,62 +118,42 @@
         @click="downloadTranscriptJSON"
         class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
       >
-        {{ $t('general.downloadJson') }}
+        {{ $t('general.download_json') }}
       </button>
     </div>
 
-    <!-- Curriculum Result -->
+    <!-- Curriculum Result & Electives -->
     <div v-if="curriculumResult">
-      <h3 class="text-xl font-semibold mb-4">{{ $t('curriculum.metadataTitle') }}</h3>
+      <h3 class="text-xl font-semibold mb-4">{{ $t('curriculum.curriculum_metadata') }}</h3>
       <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 rounded shadow mb-6">
-        <div>
-          <dt class="font-medium">{{ $t('curriculum.headers.programCode') }}</dt>
-          <dd>{{ curriculumResult.program.program_code }}</dd>
-        </div>
-        <div>
-          <dt class="font-medium">{{ $t('curriculum.headers.programName') }}</dt>
-          <dd>{{ curriculumResult.program.program_name }}</dd>
-        </div>
-        <div>
-          <dt class="font-medium">{{ $t('curriculum.headers.intakeYear') }}</dt>
-          <dd>{{ curriculumResult.program.intake_year }}</dd>
-        </div>
-        <div>
-          <dt class="font-medium">{{ $t('curriculum.headers.totalCredits') }}</dt>
-          <dd>{{ curriculumResult.program.total_credits }}</dd>
-        </div>
+        <div><dt class="font-medium">{{ $t('courses.headers.blockCode') }}</dt><dd>{{ curriculumResult.program.program_code }}</dd></div>
+        <div><dt class="font-medium">{{ $t('curriculum.intake_year') }}</dt><dd>{{ curriculumResult.program.intake_year }}</dd></div>
+        <div><dt class="font-medium">{{ $t('curriculum.total_credits') }}</dt><dd>{{ curriculumResult.program.total_credits }}</dd></div>
       </dl>
 
-      <!-- Year & Semester Tabs -->
+      <!-- Course Year Tabs -->
       <div class="flex space-x-2 mb-4">
         <button
           v-for="y in years"
           :key="y"
           @click="activeYear = y"
-          :class="[
-            'px-4 py-2 rounded text-white font-semibold transition',
-            activeYear === y ? 'bg-blue-600 ring-2 ring-white' : 'bg-black hover:bg-opacity-80'
-          ]"
+          :class="yearBtnClass(y === activeYear)"
         >
-          {{ y }} {{ $t('tabs.courseShort') }}
+          {{ y }} {{ $t('tabs.course_short') }}
         </button>
       </div>
+
+      <!-- Semester Tabs -->
       <div class="flex space-x-2 mb-6">
         <button
           @click="activeSem = 'fall'"
-          :class="[
-            'px-4 py-2 rounded text-white font-semibold transition',
-            activeSem === 'fall' ? 'bg-blue-600 ring-2 ring-white' : 'bg-black hover:bg-opacity-80'
-          ]"
+          :class="yearBtnClass(activeSem === 'fall')"
         >
           {{ $t('tabs.fall') }}
         </button>
         <button
           @click="activeSem = 'spring'"
-          :class="[
-            'px-4 py-2 rounded text-white font-semibold transition',
-            activeSem === 'spring' ? 'bg-blue-600 ring-2 ring-white' : 'bg-black hover:bg-opacity-80'
-          ]"
+          :class="yearBtnClass(activeSem === 'spring')"
         >
           {{ $t('tabs.spring') }}
         </button>
@@ -202,10 +164,15 @@
         <thead class="bg-gray-100">
           <tr>
             <th class="border px-2 py-1">{{ $t('courses.headers.index') }}</th>
-            <th class="border px-2 py-1">{{ $t('curriculum.headers.programCode') }}</th>
-            <th class="border px-2 py-1">{{ $t('curriculum.headers.programName') }}</th>
-            <th class="border px-2 py-1">{{ $t('curriculum.headers.intakeYear') }}</th>
-            <th class="border px-2 py-1">{{ $t('curriculum.headers.totalCredits') }}</th>
+            <th class="border px-2 py-1">{{ $t('courses.headers.blockCode') }}</th>
+            <th class="border px-2 py-1">{{ $t('courses.headers.disciplineCode') }}</th>
+            <th class="border px-2 py-1">{{ $t('courses.headers.disciplineName') }}</th>
+            <th class="border px-2 py-1">{{ $t('courses.headers.disciplineType') }}</th>
+            <th class="border px-2 py-1">{{ $t('courses.headers.prerequisite') }}</th>
+            <th class="border px-2 py-1">{{ $t('courses.headers.credits') }}</th>
+            <th class="border px-2 py-1">{{ $t('courses.headers.contactHours') }}</th>
+            <th class="border px-2 py-1">{{ $t('courses.headers.examType') }}</th>
+            <th class="border px-2 py-1">{{ $t('courses.headers.module') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -227,7 +194,7 @@
           </tr>
           <tr v-if="!curriculumResult.courses[activeYear][activeSem].length">
             <td colspan="10" class="border px-2 py-1 text-center italic">
-              {{ $t('general.noCourses') }}
+              {{ $t('general.no_courses') }}
             </td>
           </tr>
         </tbody>
@@ -235,27 +202,30 @@
 
       <!-- Electives -->
       <div v-if="groups.length">
-        <h3 class="text-xl font-semibold mb-4">{{ $t('electives.title') }}</h3>
+        <h3 class="text-xl font-semibold mb-4">{{ $t('electives.electives') }}</h3>
         <div class="flex space-x-2 mb-6">
           <button
             v-for="grp in groups"
             :key="grp"
             @click="activeGroup = grp"
-            :class="[
-              'px-4 py-2 rounded text-white font-semibold transition',
-              activeGroup === grp ? 'bg-blue-600 ring-2 ring-white' : 'bg-black hover:bg-opacity-80'
-            ]"
+            :class="yearBtnClass(activeGroup === grp)"
           >
-            {{ $t('electives.groupLabel') }} {{ grp }}
+            {{ $t('electives.group') }} {{ grp }}
           </button>
         </div>
         <table class="w-full text-sm border border-collapse mb-8">
           <thead class="bg-gray-100">
             <tr>
               <th class="border px-2 py-1">{{ $t('courses.headers.index') }}</th>
-              <th class="border px-2 py-1">{{ $t('curriculum.headers.programCode') }}</th>
-              <th class="border px-2 py-1">{{ $t('curriculum.headers.programName') }}</th>
-              <th class="border px-2 py-1">{{ $t('electives.groupLabel') }}</th>
+              <th class="border px-2 py-1">{{ $t('courses.headers.blockCode') }}</th>
+              <th class="border px-2 py-1">{{ $t('courses.headers.disciplineCode') }}</th>
+              <th class="border px-2 py-1">{{ $t('courses.headers.disciplineName') }}</th>
+              <th class="border px-2 py-1">{{ $t('courses.headers.disciplineType') }}</th>
+              <th class="border px-2 py-1">{{ $t('courses.headers.prerequisite') }}</th>
+              <th class="border px-2 py-1">{{ $t('courses.headers.credits') }}</th>
+              <th class="border px-2 py-1">{{ $t('courses.headers.contactHours') }}</th>
+              <th class="border px-2 py-1">{{ $t('courses.headers.examType') }}</th>
+              <th class="border px-2 py-1">{{ $t('courses.headers.module') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -268,18 +238,24 @@
               <td class="border px-2 py-1 text-center">{{ e.block }}</td>
               <td class="border px-2 py-1 text-center">{{ e.discipline_code }}</td>
               <td class="border px-2 py-1">{{ e.discipline_name }}</td>
+              <td class="border px-2 py-1">{{ e.discipline_type }}</td>
+              <td class="border px-2 py-1">{{ e.prerequisite }}</td>
+              <td class="border px-2 py-1 text-center">{{ e.credits }}</td>
+              <td class="border px-2 py-1 text-center">{{ e.contact_hours }}</td>
+              <td class="border px-2 py-1 text-center">{{ e.exam_type }}</td>
+              <td class="border px-2 py-1 text-center">{{ e.module }}</td>
             </tr>
           </tbody>
         </table>
-
         <button
           @click="downloadCurriculumJSON"
           class="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700"
         >
-          {{ $t('general.downloadJson') }}
+          {{ $t('general.download_json') }}
         </button>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -288,46 +264,51 @@ import { ref, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import axios from 'axios'
 
-const { t } = useI18n()
-const transcriptFile = ref(null)
-const curriculumFile = ref(null)
+const { t, locale } = useI18n()
+
+
+const transcriptFile   = ref(null)
+const curriculumFile   = ref(null)
 const transcriptResult = ref(null)
 const curriculumResult = ref(null)
-const loadingTrans = ref(false)
-const loadingCurr = ref(false)
-const error = ref(null)
+const loadingTrans     = ref(false)
+const loadingCurr      = ref(false)
+const error            = ref(null)
 
-const years = computed(() => curriculumResult.value ? Object.keys(curriculumResult.value.courses) : [])
+
+const years      = computed(() => curriculumResult.value ? Object.keys(curriculumResult.value.courses) : [])
 const activeYear = ref('')
 watch(years, val => { if (val.length) activeYear.value = val[0] })
 
 const activeSem = ref('fall')
 
-const groups = computed(() => curriculumResult.value ? Object.keys(curriculumResult.value.electives) : [])
+const groups      = computed(() => curriculumResult.value ? Object.keys(curriculumResult.value.electives) : [])
 const activeGroup = ref('')
 watch(groups, val => { if (val.length) activeGroup.value = val[0] })
+
 
 function onTranscriptChange(e) {
   transcriptFile.value = e.target.files[0]
   transcriptResult.value = null
   error.value = null
 }
-
 function onCurriculumChange(e) {
   curriculumFile.value = e.target.files[0]
   curriculumResult.value = null
   error.value = null
 }
 
+
 async function uploadTranscript() {
-  loadingTrans.value = true
-  error.value = null
-  const form = new FormData()
-  form.append('file', transcriptFile.value)
+  if (!transcriptFile.value) return
+  loadingTrans.value = true; error.value = null
+  const form = new FormData(); form.append('file', transcriptFile.value)
   try {
-    const { data } = await axios.post('/upload-transcript', form, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
+    const { data } = await axios.post(
+      'http://localhost:8000/upload-transcript',
+      form,
+      { headers: { 'Content-Type': 'multipart/form-data' } }
+    )
     transcriptResult.value = data
   } catch (e) {
     error.value = e.response?.data?.detail || e.message
@@ -337,14 +318,15 @@ async function uploadTranscript() {
 }
 
 async function uploadCurriculum() {
-  loadingCurr.value = true
-  error.value = null
-  const form = new FormData()
-  form.append('file', curriculumFile.value)
+  if (!curriculumFile.value) return
+  loadingCurr.value = true; error.value = null
+  const form = new FormData(); form.append('file', curriculumFile.value)
   try {
-    const { data } = await axios.post('/upload-curriculum', form, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
+    const { data } = await axios.post(
+      'http://localhost:8000/upload-curriculum',
+      form,
+      { headers: { 'Content-Type': 'multipart/form-data' } }
+    )
     curriculumResult.value = data
   } catch (e) {
     error.value = e.response?.data?.detail || e.message
@@ -353,24 +335,32 @@ async function uploadCurriculum() {
   }
 }
 
+
 function downloadTranscriptJSON() {
   const blob = new Blob([JSON.stringify(transcriptResult.value, null, 2)], { type: 'application/json' })
   const link = document.createElement('a')
   link.href = URL.createObjectURL(blob)
   link.download = 'transcript.json'
   link.click()
-  URL.revokeObjectURL(link.href)
 }
-
 function downloadCurriculumJSON() {
   const blob = new Blob([JSON.stringify(curriculumResult.value, null, 2)], { type: 'application/json' })
   const link = document.createElement('a')
   link.href = URL.createObjectURL(blob)
   link.download = 'curriculum.json'
   link.click()
-  URL.revokeObjectURL(link.href)
 }
+
+const yearBtnClass = isActive => (
+  [
+    'px-4 py-2 rounded text-white font-semibold transition',
+    isActive
+      ? 'bg-blue-600 ring-2 ring-white'
+      : 'bg-black hover:bg-opacity-80'
+  ]
+)
 </script>
 
 <style scoped>
+
 </style>

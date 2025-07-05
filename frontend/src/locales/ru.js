@@ -33,58 +33,63 @@ export default {
     role: 'Роль: {role}'
   },
   upload: {
-    title: 'Загрузка транскрипта и учебного плана',
-    transcript: 'Загрузка транскрипта',
-    curriculum: 'Загрузка учебного плана',
-    choosePdf: 'Выбрать PDF',
-    chooseXlsx: 'Выбрать XLSX',
+    upload_transcript_and_curriculum: 'Загрузить транскрипт и учебный план',
+    transcript_upload: 'Транскрипт',
+    choose_pdf: 'Выберите PDF',
+    sending: 'Отправка...',
     send: 'Отправить',
-    sending: 'Отправка...'
+    curriculum_upload: 'Учебный план',
+    choose_xlsx: 'Выберите XLSX',
   },
   student: {
-    infoTitle: 'Информация о студенте',
+    student_info: 'Информация о студенте',
     name: 'ФИО',
     faculty: 'Факультет',
-    programCode: 'Код программы',
-    programName: 'Название программы',
-    programGroup: 'Группа программы',
-    entryYear: 'Год поступления',
+    program_code: 'Код программы',
+    program_name: 'Название программы',
+    program_group: 'Группа программ',
+    entry_year: 'Год поступления',
     language: 'Язык обучения',
     gpa: 'GPA',
-    totalCredits: 'Всего кредитов'
+    total_credits: 'Кредиты всего',
   },
   courses: {
-    title: 'Курсы',
+    courses: 'Курсы',
+    course_name: 'Название',
+    credits: 'Кредиты',
+    traditional: 'Традиционная',
+    retake: 'Ретейк',
     headers: {
       index: '№',
-      courseName: 'Название курса',
-      credits: 'Кредиты',
       percent: '%',
-      traditional: 'Традиционная оценка',
-      retake: 'Пересдача'
+      traditional: 'Традиционная',
+      blockCode: 'Код блока',
+      disciplineCode: 'Шифр дисциплины',
+      disciplineName: 'Название программы',
+      disciplineType: 'Цикл дисциплин',
+      prerequisite: 'Предварительное требование',
+      contactHours: 'Контактных часов в неделю',
+      examType: 'Тип экзамена',
+      module: 'Шифр модуля',
+      credits: 'Кредиты',
     }
   },
   curriculum: {
-    metadataTitle: 'Данные учебного плана',
-    headers: {
-      programCode: 'Код программы',
-      programName: 'Название программы',
-      intakeYear: 'Год набора',
-      totalCredits: 'Всего кредитов'
-    }
+    curriculum_metadata: 'Данные программы',
+    intake_year: 'Год набора',
+    total_credits: 'Всего кредитов',
   },
   tabs: {
-    yearsLabel: 'Курс',
+    course_short: 'курс',
     fall: 'Осень',
     spring: 'Весна',
-    courseShort: 'курс'
   },
   electives: {
-    title: 'Элективы',
-    groupLabel: 'Группа'
+    electives: 'Элективы',
+    group: 'Группа',
   },
   general: {
-    downloadJson: 'Скачать JSON',
-    noCourses: 'Курсов нет'
+    download_json: 'Скачать JSON',
+    no_courses: 'Нет курсов',
   }
 }

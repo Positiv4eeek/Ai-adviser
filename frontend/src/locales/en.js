@@ -33,58 +33,63 @@ export default {
     role: 'Role: {role}'
   },
   upload: {
-    title: 'Upload Transcript and Curriculum',
-    transcript: 'Transcript Upload',
-    curriculum: 'Curriculum Upload',
-    choosePdf: 'Choose PDF',
-    chooseXlsx: 'Choose XLSX',
+    upload_transcript_and_curriculum: 'Upload transcript and curriculum',
+    transcript_upload: 'Transcript',
+    choose_pdf: 'Choose PDF',
+    sending: 'Sending...',
     send: 'Send',
-    sending: 'Sending...'
+    curriculum_upload: 'Curriculum',
+    choose_xlsx: 'Choose XLSX',
   },
   student: {
-    infoTitle: 'Student Information',
+    student_info: 'Student Info',
     name: 'Name',
     faculty: 'Faculty',
-    programCode: 'Program Code',
-    programName: 'Program Name',
-    programGroup: 'Program Group',
-    entryYear: 'Entry Year',
+    program_code: 'Program Code',
+    program_name: 'Program Name',
+    program_group: 'Program Group',
+    entry_year: 'Entry Year',
     language: 'Language',
     gpa: 'GPA',
-    totalCredits: 'Total Credits'
+    total_credits: 'Total Credits',
   },
   courses: {
-    title: 'Courses',
+    courses: 'Courses',
+    course_name: 'Course Name',
+    credits: 'Credits',
+    traditional: 'Traditional',
+    retake: 'Retake',
     headers: {
-      index: '№',
-      courseName: 'Course Name',
-      credits: 'Credits',
+      index: '#',
       percent: '%',
-      traditional: 'Traditional Grade',
-      retake: 'Retake'
+      traditional: 'Traditional',
+      blockCode: 'Block Code',
+      disciplineCode: 'Discipline Code',
+      disciplineName: 'Program Name',
+      disciplineType: 'Discipline Type',
+      prerequisite: 'Prerequisite',
+      contactHours: 'Contact hours per week',
+      examType: 'Exam Type',
+      module: 'Module Code',
+      credits: 'Credits',
     }
   },
   curriculum: {
-    metadataTitle: 'Curriculum Metadata',
-    headers: {
-      programCode: 'Program Code',
-      programName: 'Program Name',
-      intakeYear: 'Intake Year',
-      totalCredits: 'Total Credits'
-    }
+    curriculum_metadata: 'Curriculum Data',
+    intake_year: 'Intake Year',
+    total_credits: 'Total Credits',
   },
   tabs: {
-    yearsLabel: 'Year',
+    course_short: 'course',
     fall: 'Fall',
     spring: 'Spring',
-    courseShort: 'course'
   },
   electives: {
-    title: 'Electives',
-    groupLabel: 'Group'
+    electives: 'Electives',
+    group: 'Group',
   },
   general: {
-    downloadJson: 'Download JSON',
-    noCourses: 'No Courses Available'
+    download_json: 'Download JSON',
+    no_courses: 'No courses',
   }
 }
