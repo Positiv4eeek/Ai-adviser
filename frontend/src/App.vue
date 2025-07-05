@@ -1,17 +1,8 @@
 <template>
   <div>
     <nav class="p-4 flex justify-center items-center space-x-4">
-
-      <select
-        v-model="locale"
-        class="w-16 bg-white text-blue-600 dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        <option value="kz">KZ</option>
-        <option value="ru">RU</option>
-        <option value="en">EN</option>
-      </select>
-
-
+      <img src="/narxoz-logo.svg" alt="Narxoz Logo" class="h-10 w-auto" />
+  
       <router-link to="/" class="text-blue-600 hover:underline">{{ $t('nav.home') }}</router-link>
       <template v-if="!isAuthenticated">
         <router-link to="/login" class="text-blue-600 hover:underline">{{ $t('nav.login') }}</router-link>
@@ -26,6 +17,14 @@
         >
           {{ $t('nav.logout') }}
         </router-link>
+        <select
+        v-model="locale"
+        class="w-16 bg-white text-blue-600 dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option value="kz">KZ</option>
+        <option value="ru">RU</option>
+        <option value="en">EN</option>
+      </select>
       </template>
     </nav>
     <router-view />

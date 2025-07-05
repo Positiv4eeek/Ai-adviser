@@ -31,5 +31,60 @@ export default {
   dashboard: {
     greeting: 'Привет, {firstName} {lastName}!',
     role: 'Роль: {role}'
+  },
+  upload: {
+    title: 'Загрузка транскрипта и учебного плана',
+    transcript: 'Загрузка транскрипта',
+    curriculum: 'Загрузка учебного плана',
+    choosePdf: 'Выбрать PDF',
+    chooseXlsx: 'Выбрать XLSX',
+    send: 'Отправить',
+    sending: 'Отправка...'
+  },
+  student: {
+    infoTitle: 'Информация о студенте',
+    name: 'ФИО',
+    faculty: 'Факультет',
+    programCode: 'Код программы',
+    programName: 'Название программы',
+    programGroup: 'Группа программы',
+    entryYear: 'Год поступления',
+    language: 'Язык обучения',
+    gpa: 'GPA',
+    totalCredits: 'Всего кредитов'
+  },
+  courses: {
+    title: 'Курсы',
+    headers: {
+      index: '№',
+      courseName: 'Название курса',
+      credits: 'Кредиты',
+      percent: '%',
+      traditional: 'Традиционная оценка',
+      retake: 'Пересдача'
+    }
+  },
+  curriculum: {
+    metadataTitle: 'Данные учебного плана',
+    headers: {
+      programCode: 'Код программы',
+      programName: 'Название программы',
+      intakeYear: 'Год набора',
+      totalCredits: 'Всего кредитов'
+    }
+  },
+  tabs: {
+    yearsLabel: 'Курс',
+    fall: 'Осень',
+    spring: 'Весна',
+    courseShort: 'курс'
+  },
+  electives: {
+    title: 'Элективы',
+    groupLabel: 'Группа'
+  },
+  general: {
+    downloadJson: 'Скачать JSON',
+    noCourses: 'Курсов нет'
   }
 }
