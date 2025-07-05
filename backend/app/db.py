@@ -12,8 +12,6 @@ class Settings(BaseSettings):
     smtp_host: str = "smtp.gmail.com"
     smtp_port: int = 587
 
-    frontend_url: str
-
     class Config:
         env_file = ".env"
 
