@@ -1,0 +1,10 @@
+fastapi
+fastapi_mail
+fitz
+pandas
+passlib
+pydantic
+pydantic_settings
+python_jose
+SQLAlchemy
+starlette

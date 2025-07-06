@@ -1,0 +1,11 @@
+@tailwindcss/vite
+@vitejs/plugin-vue
+autoprefixer
+axios
+jwt-decode
+postcss
+tailwindcss
+vite
+vue
+vue-i18n
+vue-router
