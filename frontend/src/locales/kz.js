@@ -6,6 +6,8 @@ export default {
     logout: 'Шығу',
     dashboard: 'Панель басқару',
     verify: 'Растау', 
+    upload_curriculum: 'Оқу жоспарын жүктеу',
+    list_curriculum: 'Оқу жоспарлары тізімі',
   },
   verify: {
     email:  'Пошта',
@@ -40,6 +42,7 @@ export default {
     error: 'Кіру қатесі'
   },
   dashboard: {
+    loading: 'Жүктелуде...',
     greeting: 'Сәлем, {firstName} {lastName}!',
     role: 'Рөлі: {role}'
   },
@@ -52,6 +55,7 @@ export default {
     send: 'Жіберу',
     curriculum_upload: 'Оқу жоспары',
     choose_xlsx: 'XLSX таңдаңыз',
+    saved_id: "Сақталды ID {id}",
   },
   student: {
     student_info: 'Студент туралы ақпарат',
@@ -87,6 +91,8 @@ export default {
     }
   },
   curriculum: {
+    choose_plan: 'Оқу жоспарын таңдаңыз',
+    select_placeholder: 'Таңдау',
     program_code: 'Бағдарлама коды',
     program_name: 'Бағдарлама атауы',
     program_group: 'Бағдарлама тобы',
@@ -104,6 +110,7 @@ export default {
     group: 'Топ',
   },
   general: {
+    loading: 'Жүктелуде...',
     download_json: 'JSON жүктеу',
     no_courses: 'Курс жоқ',
   }

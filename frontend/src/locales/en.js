@@ -6,6 +6,8 @@ export default {
     logout: 'Logout',
     dashboard: 'Dashboard',
     verify:    'Verify',
+    upload_curriculum: 'Upload Curriculum',
+    list_curriculum: 'Curriculum List',
   },
   verify: {
     email: 'Email',
@@ -40,6 +42,7 @@ export default {
     or: 'or'
   },
   dashboard: {
+    loading: 'Loading...',
     greeting: 'Hello, {firstName} {lastName}!',
     role: 'Role: {role}'
   },
@@ -52,6 +55,7 @@ export default {
     send: 'Send',
     curriculum_upload: 'Curriculum',
     choose_xlsx: 'Choose XLSX',
+    saved_id: "Saved with ID {id}",
   },
   student: {
     student_info: 'Student Info',
@@ -87,6 +91,8 @@ export default {
     }
   },
   curriculum: {
+    choose_plan: 'Choose Curriculum',
+    select_placeholder: 'Select',
     program_code: 'Program Code',
     program_name: 'Program Name',
     program_group: 'Program Group',
@@ -104,6 +110,7 @@ export default {
     group: 'Group',
   },
   general: {
+    loading: 'Loading...',
     download_json: 'Download JSON',
     no_courses: 'No courses',
   }

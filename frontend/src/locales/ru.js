@@ -6,6 +6,8 @@ export default {
     logout: 'Выход',
     dashboard: 'Панель управления',
     verify: 'Подтверждение', 
+    upload_curriculum: 'Загрузить учебный план',
+    list_curriculum: 'Список учебных планов',
   },
   verify: {
     email: 'Почта',
@@ -40,6 +42,7 @@ export default {
     error: 'Ошибка входа'
   },
   dashboard: {
+    loading: 'Загрузка...',
     greeting: 'Привет, {firstName} {lastName}!',
     role: 'Роль: {role}'
   },
@@ -52,6 +55,7 @@ export default {
     send: 'Отправить',
     curriculum_upload: 'Учебный план',
     choose_xlsx: 'Выберите XLSX',
+    saved_id: "Сохранено с ID {id}",
   },
   student: {
     student_info: 'Информация о студенте',
@@ -87,6 +91,8 @@ export default {
     }
   },
   curriculum: {
+    choose_plan: 'Выберите учебный план',
+    select_placeholder: 'Выбрать',
     program_code: 'Код программы',
     program_name: 'Название программы',
     program_group: 'Группа программ',
@@ -104,6 +110,7 @@ export default {
     group: 'Группа',
   },
   general: {
+    loading: 'Загрузка...',
     download_json: 'Скачать JSON',
     no_courses: 'Нет курсов',
   }

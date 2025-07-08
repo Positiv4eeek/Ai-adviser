@@ -4,6 +4,8 @@ import Login     from '@/views/Login.vue'
 import Register  from '@/views/Register.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import Verify    from '@/views/Verify.vue'
+import UploadCurriculum from '@/components/UploadCurriculum.vue'
+import CurriculumList   from '@/views/CurriculumList.vue'
 
 const routes = [
   { path: '/',         component: Home },
@@ -14,6 +16,16 @@ const routes = [
     path: '/dashboard',
     component: Dashboard,
     meta: { requiresAuth: true } 
+  },
+  {
+    path: '/upload-curriculum',
+    component: UploadCurriculum,
+    meta: { requiresAuth: true, requiresRole: 'admin' } 
+  },
+  {
+    path: '/curriculum/list',
+    component: CurriculumList,
+    meta: { requiresAuth: true, requiresRole: 'admin' }
   },
 ]
 

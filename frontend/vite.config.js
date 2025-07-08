@@ -27,10 +27,6 @@ export default defineConfig({
         target: 'http://127.0.0.1:8000',
         changeOrigin: true,
       },
-      '/upload-curriculum': {
-        target: 'http://127.0.0.1:8000',
-        changeOrigin: true,
-      },
     }
   }
 })

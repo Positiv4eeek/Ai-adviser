@@ -3,7 +3,6 @@
     <h1 class="text-3xl mb-4">{{ $t('home.welcome') }}</h1>
 
     <UploadTranscript v-if="isAuthenticated" />
-    <UploadCurriculum v-if="isAuthenticated" />
 
     <div v-else class="p-4">
       <p>
@@ -19,7 +18,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import UploadTranscript from '@/components/UploadTranscript.vue'
-import UploadCurriculum from '@/components/UploadCurriculum.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()

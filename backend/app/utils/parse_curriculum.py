@@ -8,7 +8,7 @@ def normalize_text(text):
 
 def detect_language(text_lines):
     joined = " ".join(text_lines).lower()
-    if "жылы" in joined or "пән" in joined or "семестр" in joined:
+    if "жылы" in joined or "пән" in joined:
         return "kz"
     elif "year" in joined or "course" in joined or "semester" in joined:
         return "en"

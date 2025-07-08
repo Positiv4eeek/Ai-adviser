@@ -10,6 +10,8 @@
       </template>
       <template v-else>
         <router-link to="/dashboard" class="text-blue-600 hover:underline">{{ $t('nav.dashboard') }}</router-link>
+        <router-link to="/upload-curriculum">{{ $t('nav.upload_curriculum') }}</router-link>
+        <router-link to="/curriculum/list">{{ $t('nav.list_curriculum') }}</router-link>
         <router-link
           to="/"
           @click.prevent="logout"
