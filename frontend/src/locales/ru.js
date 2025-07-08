@@ -44,7 +44,8 @@ export default {
     role: 'Роль: {role}'
   },
   upload: {
-    upload_transcript_and_curriculum: 'Загрузить транскрипт и учебный план',
+    upload_transcript: 'Загрузить транскрипт',
+    upload_curriculum: 'Загрузить учебный план',
     transcript_upload: 'Транскрипт',
     choose_pdf: 'Выберите PDF',
     sending: 'Отправка...',
@@ -86,6 +87,9 @@ export default {
     }
   },
   curriculum: {
+    program_code: 'Код программы',
+    program_name: 'Название программы',
+    program_group: 'Группа программ',
     curriculum_metadata: 'Данные программы',
     intake_year: 'Год набора',
     total_credits: 'Всего кредитов',

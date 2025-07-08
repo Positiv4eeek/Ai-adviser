@@ -15,7 +15,6 @@ if (token) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
 
-
 const i18n = createI18n({
   legacy: false,             
   globalInjection: true,     
@@ -28,8 +27,15 @@ const i18n = createI18n({
   },
 })
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+import { faCheck, faMinus } from '@fortawesome/free-solid-svg-icons'
+library.add(faCheck, faMinus)
 
 const app = createApp(App)
+
+app.component('FontAwesomeIcon', FontAwesomeIcon)
 
 app.config.globalProperties.$axios = axios
 

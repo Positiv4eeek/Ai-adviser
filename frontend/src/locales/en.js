@@ -44,7 +44,8 @@ export default {
     role: 'Role: {role}'
   },
   upload: {
-    upload_transcript_and_curriculum: 'Upload transcript and curriculum',
+    upload_transcript: 'Upload transcript',
+    upload_curriculum: 'Upload curriculum',
     transcript_upload: 'Transcript',
     choose_pdf: 'Choose PDF',
     sending: 'Sending...',
@@ -86,6 +87,9 @@ export default {
     }
   },
   curriculum: {
+    program_code: 'Program Code',
+    program_name: 'Program Name',
+    program_group: 'Program Group',
     curriculum_metadata: 'Curriculum Data',
     intake_year: 'Intake Year',
     total_credits: 'Total Credits',

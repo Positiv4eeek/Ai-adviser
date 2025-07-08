@@ -44,7 +44,8 @@ export default {
     role: 'Рөлі: {role}'
   },
   upload: {
-    upload_transcript_and_curriculum: 'Транскрипт пен оқу жоспарын жүктеу',
+    upload_transcript: 'Транскрипт жүктеу',
+    upload_curriculum: 'Оқу жоспарын жүктеу',
     transcript_upload: 'Транскрипт',
     choose_pdf: 'PDF таңдаңыз',
     sending: 'Жіберілуде...',
@@ -86,6 +87,9 @@ export default {
     }
   },
   curriculum: {
+    program_code: 'Бағдарлама коды',
+    program_name: 'Бағдарлама атауы',
+    program_group: 'Бағдарлама тобы',
     curriculum_metadata: 'Оқу жоспарының деректері',
     intake_year: 'Қабылдау жылы',
     total_credits: 'Жалпы кредиттер',

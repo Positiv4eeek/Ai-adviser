@@ -21,7 +21,7 @@
       
       <select
         v-model="locale"
-        class="w-16 bg-white text-blue-600 dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-16 bg-white text-blue-600 dark:bg-zinc-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-zinc-700"
       >
         <option value="kz">KZ</option>
         <option value="ru">RU</option>
