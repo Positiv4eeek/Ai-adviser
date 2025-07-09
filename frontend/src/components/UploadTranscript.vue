@@ -130,25 +130,30 @@
           {{ $t('general.download_json') }}
         </button>
       </div>
+      
+    </div>
+    <div v-if="curriculumDetail">
+      <h2 class="text-2xl font-bold mt-10 text-center">Учебный план</h2>
+      <CurriculumDetail :data="curriculumDetail" :hideMetadata="true" />
+
     </div>
   </div>
 </template>
 
+
+
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import CurriculumDetail from '@/views/CurriculumDetail.vue'
 
-const transcriptFile   = ref(null)
+
+const transcriptFile = ref(null)
 const transcriptResult = ref(null)
-const loading          = ref(false)
-const error            = ref('')
+const curriculumDetail = ref(null)
+const error = ref('')
+const loading = ref(false)
 
-function onTranscriptChange(e) {
-  transcriptFile.value = e.target.files[0]
-  transcriptResult.value = null
-  error.value = null
-}
 
 async function uploadTranscript() {
   if (!transcriptFile.value) return
@@ -163,22 +168,27 @@ async function uploadTranscript() {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
     transcriptResult.value = data
+
+    if (data.curriculum_id) {
+      const res = await axios.get(`/curriculum/${data.curriculum_id}`)
+      curriculumDetail.value = res.data
+    }
+
   } catch (e) {
     error.value = e.response?.data?.detail || e.message
   } finally {
     loading.value = false
   }
 }
-
-function downloadTranscriptJSON() {
-  const blob = new Blob([JSON.stringify(transcriptResult.value, null, 2)], {
-    type: 'application/json'
-  })
-  const link = document.createElement('a')
-  link.href = URL.createObjectURL(blob)
-  link.download = 'transcript.json'
-  link.click()
+function onTranscriptChange(event) {
+  const file = event.target.files[0]
+  if (file && file.type === 'application/pdf') {
+    transcriptFile.value = file
+  } else {
+    transcriptFile.value = null
+  }
 }
+
 </script>
 
 <style scoped>

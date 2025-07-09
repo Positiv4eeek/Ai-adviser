@@ -1,7 +1,7 @@
 <template>
   <div class="p-6 space-y-8">
 
-    <div class="bg-zinc-800 p-6 rounded-xl text-white space-y-4">
+    <div v-if="!hideMetadata" class="bg-zinc-800 p-6 rounded-xl text-white space-y-4">
       <h2 class="text-2xl font-bold text-center">
         {{ $t('curriculum.curriculum_metadata') }}
       </h2>
@@ -40,9 +40,9 @@
         >{{ y }} {{ $t('tabs.course_short') }}</button>
       </div>
 
-      <div class="bg-zinc-700 p-4 rounded-lg overflow-auto max-h-96">
+      <div class="bg-zinc-800 p-0 rounded-lg overflow-auto max-h-96">
         <table class="w-full text-sm border-collapse">
-          <thead class="sticky top-0 bg-zinc-800 bg-opacity-90">
+          <thead class="sticky top-0 bg-neutral-900 bg-opacity-100">
             <tr>
               <th class="px-3 py-2 font-medium text-white">{{ $t('courses.headers.index') }}</th>
               <th class="px-3 py-2 font-medium text-white">{{ $t('courses.headers.blockCode') }}</th>
@@ -96,9 +96,9 @@
           :class="tabClass(activeGroup === grp)"
         >{{ $t('electives.group') }} {{ grp }}</button>
       </div>
-      <div class="bg-zinc-700 p-4 rounded-lg overflow-auto max-h-80">
+      <div class="bg-zinc-700 p-0 rounded-lg overflow-auto max-h-80">
         <table class="w-full text-sm border-collapse">
-          <thead class="sticky top-0 bg-zinc-800 bg-opacity-90">
+          <thead class="sticky top-0 bg-neutral-900 bg-opacity-90">
             <tr>
               <th class="px-3 py-2 font-medium text-white">{{ $t('courses.headers.index') }}</th>
               <th class="px-3 py-2 font-medium text-white">{{ $t('courses.headers.blockCode') }}</th>
@@ -147,6 +147,10 @@ const props = defineProps({
   data: {
     type: Object,
     required: true
+  },
+  hideMetadata: {
+    type: Boolean,
+    default: false
   }
 })
 
