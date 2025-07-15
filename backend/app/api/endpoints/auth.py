@@ -13,7 +13,6 @@ from app.utils.email import fm, MessageSchema
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
-
 class RegisterRequest(BaseModel):
     first_name: str
     last_name: str
@@ -24,6 +23,10 @@ class RegisterRequest(BaseModel):
 class VerifyRequest(BaseModel):
     email: EmailStr
     code: str
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
 
 
 @router.post("/register", status_code=201)
@@ -49,9 +52,7 @@ async def register(data: RegisterRequest, db: Session = Depends(get_db)):
     db.add(ev)
     db.commit()
 
-    body = (
-      f"Ваш код подтверждения: {code}"
-    )
+    body = f"Ваш код подтверждения: {code}"
     msg = MessageSchema(
         subject="Подтвердите вашу почту",
         recipients=[data.email],
@@ -82,17 +83,17 @@ def verify(req: VerifyRequest, db: Session = Depends(get_db)):
         role            = ev.role,
     )
     db.add(user)
-
     db.delete(ev)
     db.commit()
 
     return {"msg": "Email подтверждён, аккаунт создан"}
 
 
-@router.post("/token")
-def login(form_data: OAuth2PasswordRequestForm = Depends(),
-          db: Session = Depends(get_db)):
-
+@router.post("/token", response_model=TokenResponse)
+def login(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: Session = Depends(get_db)
+):
     user = db.query(User).filter(User.email == form_data.username).first()
     if not user or not user.verify_password(form_data.password):
         raise HTTPException(
@@ -100,5 +101,10 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(),
             detail="Incorrect credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    token = create_access_token(user.email, user.role)
-    return {"access_token": token, "token_type": "bearer"}
+
+    token = create_access_token(user)
+
+    return {
+        "access_token": token,
+        "token_type": "bearer"
+    }

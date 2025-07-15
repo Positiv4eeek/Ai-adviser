@@ -1,7 +1,20 @@
 <template>
   <div class="p-6 space-y-8">
 
-    <div class="bg-zinc-800 p-6 rounded-xl text-white space-y-4">
+    <div v-if="transcriptResult && !showUploadForm" class="text-center">
+      <button
+        @click="showUploadForm = true"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
+      >
+        {{ $t('upload.upload_new_transcript') }}
+      </button>
+    </div>
+
+
+    <div
+      v-if="!transcriptResult || showUploadForm"
+      class="bg-zinc-800 p-6 rounded-xl text-white space-y-4"
+    >
       <h2 class="text-2xl font-bold text-center">
         {{ $t('upload.upload_transcript') }}
       </h2>
@@ -27,9 +40,12 @@
           {{ loading ? $t('general.loading') : $t('upload.send') }}
         </button>
       </div>
-      <p v-if="error" class="text-red-500 text-center">{{ error }}</p>
-    </div>
 
+      <p v-if="error" class="text-red-500 text-center">{{ error }}</p>
+      <p v-if="noTranscript && !error" class="text-yellow-400 text-center">
+        {{ $t('upload.no_transcript_found') }}
+      </p>
+    </div>
 
     <div
       v-if="transcriptResult"
@@ -101,18 +117,12 @@
                     <span v-if="course.percent !== null && course.percent !== undefined">
                       {{ course.percent }}
                     </span>
-                    <span v-else>
-                      <FontAwesomeIcon icon="fa-minus" />
-                    </span>
+                    <span v-else>-</span>
                   </td>
                   <td class="px-3 py-2 text-center">{{ course.grade_traditional }}</td>
                   <td class="px-3 py-2 text-center">
-                    <span v-if="course.is_retake">
-                      <FontAwesomeIcon icon="fa-check" />
-                    </span>
-                    <span v-else>
-                      <FontAwesomeIcon icon="fa-minus" />
-                    </span>
+                    <span v-if="course.is_retake">✔</span>
+                    <span v-else>-</span>
                   </td>
                 </tr>
               </tbody>
@@ -120,7 +130,6 @@
           </div>
         </div>
       </div>
-
 
       <div class="text-center">
         <button
@@ -130,30 +139,45 @@
           {{ $t('general.download_json') }}
         </button>
       </div>
-      
-    </div>
-    <div v-if="curriculumDetail">
-      <h2 class="text-2xl font-bold mt-10 text-center">Учебный план</h2>
-      <CurriculumDetail :data="curriculumDetail" :hideMetadata="true" />
-
     </div>
   </div>
 </template>
 
-
-
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import CurriculumDetail from '@/views/CurriculumDetail.vue'
-
 
 const transcriptFile = ref(null)
 const transcriptResult = ref(null)
-const curriculumDetail = ref(null)
-const error = ref('')
+const showUploadForm = ref(false)
 const loading = ref(false)
+const error = ref('')
+const noTranscript = ref(false)
 
+function onTranscriptChange(e) {
+  transcriptFile.value = e.target.files[0]
+  transcriptResult.value = null
+  error.value = null
+  noTranscript.value = false
+}
+
+async function fetchUserTranscript() {
+  loading.value = true
+  error.value = ''
+  try {
+    const { data } = await axios.get('/transcript/current')
+    transcriptResult.value = data
+    noTranscript.value = false
+  } catch (e) {
+    if (e.response?.status === 404) {
+      noTranscript.value = true
+    } else {
+      error.value = 'Не удалось загрузить транскрипт'
+    }
+  } finally {
+    loading.value = false
+  }
+}
 
 async function uploadTranscript() {
   if (!transcriptFile.value) return
@@ -164,40 +188,39 @@ async function uploadTranscript() {
   form.append('file', transcriptFile.value)
 
   try {
-    const { data } = await axios.post('/upload-transcript', form, {
+    await axios.post('/transcript/upload', form, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
-    transcriptResult.value = data
-
-    if (data.curriculum_id) {
-      const res = await axios.get(`/curriculum/${data.curriculum_id}`)
-      curriculumDetail.value = res.data
-    }
-
+    await fetchUserTranscript()
+    showUploadForm.value = false
   } catch (e) {
     error.value = e.response?.data?.detail || e.message
   } finally {
     loading.value = false
   }
 }
-function onTranscriptChange(event) {
-  const file = event.target.files[0]
-  if (file && file.type === 'application/pdf') {
-    transcriptFile.value = file
-  } else {
-    transcriptFile.value = null
-  }
+
+function downloadTranscriptJSON() {
+  const blob = new Blob([JSON.stringify(transcriptResult.value, null, 2)], {
+    type: 'application/json'
+  })
+  const link = document.createElement('a')
+  link.href = URL.createObjectURL(blob)
+  link.download = 'transcript.json'
+  link.click()
 }
 
+onMounted(() => {
+  fetchUserTranscript()
+})
 </script>
 
 <style scoped>
-
 .overflow-auto::-webkit-scrollbar {
   height: 10px;
 }
 .overflow-auto::-webkit-scrollbar-thumb {
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 3px;
 }
 </style>

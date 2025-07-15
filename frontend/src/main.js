@@ -11,6 +11,7 @@ import messagesEN from './locales/en.js'
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL
 const token = localStorage.getItem('token')
+console.log('TOKEN:', token)
 if (token) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }

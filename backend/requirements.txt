@@ -8,3 +8,5 @@ pydantic_settings
 python_jose
 SQLAlchemy
 starlette
+openai 
+python-dotenv

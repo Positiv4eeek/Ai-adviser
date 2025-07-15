@@ -47,6 +47,7 @@ export default {
     role: 'Роль: {role}'
   },
   upload: {
+    upload_new_transcript: "Загрузить новый транскрипт",
     upload_transcript: 'Загрузить транскрипт',
     upload_curriculum: 'Загрузить учебный план',
     transcript_upload: 'Транскрипт',

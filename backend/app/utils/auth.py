@@ -8,7 +8,6 @@ from app.models import User, UserRole
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
-
 def get_db():
     db = SessionLocal()
     try:
@@ -17,9 +16,13 @@ def get_db():
         db.close()
 
 
-def create_access_token(email: str, role: UserRole) -> str:
+def create_access_token(user: User) -> str:
     expire = datetime.utcnow() + timedelta(minutes=60)
-    to_encode = {"sub": email, "role": role.value, "exp": expire}
+    to_encode = {
+        "sub": str(user.id),
+        "role": user.role.value,
+        "exp": expire
+    }
     return jwt.encode(to_encode, settings.secret_key, algorithm="HS256")
 
 
@@ -34,12 +37,13 @@ def get_current_user(
     )
     try:
         payload = jwt.decode(token, settings.secret_key, algorithms=["HS256"])
-        email: str = payload.get("sub")
-        if not email:
+        user_id: str = payload.get("sub")
+        if not user_id:
             raise credentials_exception
     except JWTError:
         raise credentials_exception
-    user = db.query(User).filter(User.email == email).first()
+
+    user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise credentials_exception
     return user

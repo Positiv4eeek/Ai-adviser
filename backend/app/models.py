@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime
 from sqlalchemy import (
     Column, String, DateTime, Enum as SQLEnum,
-    Integer, Float, ForeignKey
+    Integer, Float, Boolean, ForeignKey
 )
 from sqlalchemy.orm import relationship
 from passlib.context import CryptContext
@@ -98,3 +98,34 @@ class Elective(Base):
     module           = Column(String, nullable=False)
 
     curriculum       = relationship("Curriculum", back_populates="electives")
+
+
+class Transcript(Base):
+    __tablename__ = "transcripts"
+
+    id           = Column(Integer, primary_key=True, autoincrement=True)
+    user_id      = Column(String, ForeignKey("users.id"), nullable=False, index=True)
+    student_id   = Column(String, index=True, nullable=False)
+    parsed_at    = Column(DateTime, default=datetime.utcnow)
+   
+    student_info = Column(String, nullable=False)
+
+    courses      = relationship("TranscriptCourse", back_populates="transcript", cascade="all, delete-orphan")
+
+
+class TranscriptCourse(Base):
+    __tablename__ = "transcript_courses"
+
+    id               = Column(Integer, primary_key=True, autoincrement=True)
+    transcript_id    = Column(Integer, ForeignKey("transcripts.id"), nullable=False)
+    transcript       = relationship("Transcript", back_populates="courses")
+    code             = Column(Integer, nullable=False)
+    course_name      = Column(String, nullable=False)
+    credits          = Column(Integer, nullable=False)
+    percent          = Column(Float, nullable=True)
+    grade_letter     = Column(String, nullable=True)
+    grade_point      = Column(Float, nullable=True)
+    grade_traditional= Column(String, nullable=True)
+    is_retake        = Column(Boolean, default=False)
+
+    

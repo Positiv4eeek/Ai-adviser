@@ -47,6 +47,7 @@ export default {
     role: 'Role: {role}'
   },
   upload: {
+    upload_new_transcript: "Upload New Transcript",
     upload_transcript: 'Upload transcript',
     upload_curriculum: 'Upload curriculum',
     transcript_upload: 'Transcript',
