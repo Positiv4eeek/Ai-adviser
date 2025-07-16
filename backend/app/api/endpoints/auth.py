@@ -8,7 +8,7 @@ from pydantic import BaseModel, EmailStr
 
 from app.db import get_db, settings
 from app.models import User, UserRole, EmailVerification
-from app.utils.auth import create_access_token
+from app.utils.auth import create_access_token, get_current_user
 from app.utils.email import fm, MessageSchema
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -28,6 +28,12 @@ class TokenResponse(BaseModel):
     access_token: str
     token_type: str
 
+class UserOut(BaseModel):
+    id: str
+    first_name: str
+    last_name: str
+    email: str
+    role: str
 
 @router.post("/register", status_code=201)
 async def register(data: RegisterRequest, db: Session = Depends(get_db)):
@@ -108,3 +114,7 @@ def login(
         "access_token": token,
         "token_type": "bearer"
     }
+
+@router.get("/me", response_model=UserOut)
+def read_current_user(user: User = Depends(get_current_user)):
+    return user

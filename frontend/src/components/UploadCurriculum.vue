@@ -1,11 +1,11 @@
 <template>
-  <div class="p-6 space-y-8">
+  <div class="space-y-8">
     <div class="bg-zinc-800 p-6 rounded-xl text-white space-y-4">
       <h2 class="text-2xl font-bold text-center">{{ t('upload.upload_curriculum') }}</h2>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
         <label
           for="curr-upload"
-          class="flex-1 bg-zinc-700 hover:bg-zinc-600 px-4 py-2 rounded border border-dashed border-gray-600 text-center cursor-pointer min-w-0"
+          class="flex-1 bg-zinc-700 hover:bg-zinc-600 px-4 py-2 rounded border-gray-600 text-center cursor-pointer min-w-0"
         >
           {{ fileName }}
           <input

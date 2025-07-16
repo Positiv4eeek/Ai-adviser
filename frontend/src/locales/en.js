@@ -1,5 +1,9 @@
 export default {
   nav: {
+    transcript: 'Transcript',
+    curriculum: 'Curriculum',
+    users: 'Users',
+    admin_panel: 'Admin Panel',
     home: 'Home',
     login: 'Login',
     register: 'Register',
@@ -59,6 +63,8 @@ export default {
     saved_id: "Saved with ID {id}",
   },
   student: {
+    student_id: 'Student ID',
+    transcript_detail: 'Transcript Details',
     student_info: 'Student Info',
     name: 'Name',
     faculty: 'Faculty',
@@ -92,6 +98,7 @@ export default {
     }
   },
   curriculum: {
+    all_curricula: 'All Curricula',
     choose_plan: 'Choose Curriculum',
     select_placeholder: 'Select',
     program_code: 'Program Code',
@@ -111,8 +118,32 @@ export default {
     group: 'Group',
   },
   general: {
+    hide_details: 'Hide Details',
+    search_placeholder: 'Search',
+    details: 'Details',
     loading: 'Loading...',
     download_json: 'Download JSON',
     no_courses: 'No courses',
+    delete: "Delete",
+    actions: "Actions",
+  },
+  admin: {
+    search_user_placeholder: "Search by name, email, ID or role...",
+    search_transcript_placeholder: "Search by name or faculty",
+    search_curriculum_placeholder: "Search by program code or name",
+    users: 'Users',
+    user_list: 'User List',
+    user_info: 'User Info',
+    name: 'Name',
+    email: 'Email',
+    role: 'Role',
+    actions: 'Actions',
+    delete_user: 'Delete User',
+    confirm_delete: 'Are you sure you want to delete this user?',
+    delete_success: 'User deleted successfully',
+    delete_error: 'Error deleting user'
+  },
+  transcript: {
+    all_transcripts: 'All Transcripts',
   }
 }

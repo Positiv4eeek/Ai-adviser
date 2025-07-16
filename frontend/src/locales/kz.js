@@ -1,5 +1,9 @@
 export default {
   nav: {
+    transcript: 'Транскрипт',
+    curriculum: 'Оқу жоспары',
+    users: 'Пайдаланушылар',
+    admin_panel: 'Әкімшілік панель',
     home: 'Басты бет',
     login: 'Кіру',
     register: 'Тіркелу',
@@ -59,6 +63,8 @@ export default {
     saved_id: "Сақталды ID {id}",
   },
   student: {
+    student_id: 'Студент ID',
+    transcript_detail: 'Транскрипт туралы мәліметтер',
     student_info: 'Студент туралы ақпарат',
     name: 'Аты-жөні',
     faculty: 'Факультет',
@@ -92,6 +98,7 @@ export default {
     }
   },
   curriculum: {
+    all_curricula: 'Барлық оқу жоспарлары',
     choose_plan: 'Оқу жоспарын таңдаңыз',
     select_placeholder: 'Таңдау',
     program_code: 'Бағдарлама коды',
@@ -111,8 +118,30 @@ export default {
     group: 'Топ',
   },
   general: {
+    hide_details: 'Мәліметтерді жасыру',
+    search_placeholder: 'Іздеу',
+    details: 'Мәліметтер',
     loading: 'Жүктелуде...',
     download_json: 'JSON жүктеу',
     no_courses: 'Курс жоқ',
+    delete: "Жою",
+    actions: "Әрекеттер",
+  },
+  admin: {
+    search_user_placeholder: "Аты, email, ID немесе рөл бойынша іздеу...",
+    search_transcript_placeholder: "Аты-жөні немесе факультет бойынша іздеу",
+    search_curriculum_placeholder: "Бағдарлама коды немесе атауы бойынша іздеу",
+    user_management: 'Пайдаланушы басқару',
+    curriculum_management: 'Оқу жоспарын басқару',
+    upload_curriculum: 'Оқу жоспарын жүктеу',
+    view_curriculum: 'Оқу жоспарын көру',
+    actions: 'Әрекеттер',
+    delete: 'Жою',
+    confirm_delete: 'Сіз бұл жазбаны жойғыңыз келе ме?',
+    delete_success: 'Жазба сәтті жойылды',
+    delete_error: 'Жазбаны жою кезінде қате пайда болды'
+  },
+  transcript: {
+    all_transcripts: 'Барлық транскрипттер',
   }
 }

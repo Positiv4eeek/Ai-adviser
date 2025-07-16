@@ -54,9 +54,12 @@ async function submit() {
     const res = await axios.post('/auth/token', params, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     })
-    localStorage.setItem('token', res.data.access_token)
 
+    localStorage.setItem('token', res.data.access_token)
     axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access_token}`
+
+    const userRes = await axios.get('/auth/me')
+    localStorage.setItem('user', JSON.stringify(userRes.data))
 
     router.push('/dashboard')
   } catch (e) {

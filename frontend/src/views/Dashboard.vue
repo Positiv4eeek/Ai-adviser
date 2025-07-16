@@ -31,7 +31,7 @@ onMounted(async () => {
   }
   try {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    const res = await axios.get('/me')
+    const res = await axios.get('auth/me')
     user.value = res.data
   } catch (e) {
     error.value = t('dashboard.fetchError')

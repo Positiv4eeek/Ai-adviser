@@ -1,5 +1,9 @@
 export default {
   nav: {
+    transcript: 'Транскрипт',
+    curriculum: 'Учебный план',
+    users: 'Пользователи',
+    admin_panel: 'Админ панель',
     home: 'Главная',
     login: 'Вход',
     register: 'Регистрация',
@@ -59,6 +63,8 @@ export default {
     saved_id: "Сохранено с ID {id}",
   },
   student: {
+    student_id: 'ID студента',
+    transcript_detail: 'Детали транскрипта',
     student_info: 'Информация о студенте',
     name: 'ФИО',
     faculty: 'Факультет',
@@ -92,6 +98,7 @@ export default {
     }
   },
   curriculum: {
+    all_curricula: 'Все учебные планы',
     choose_plan: 'Выберите учебный план',
     select_placeholder: 'Выбрать',
     program_code: 'Код программы',
@@ -111,8 +118,30 @@ export default {
     group: 'Группа',
   },
   general: {
+    hide_details: 'Скрыть детали',
+    search_placeholder: 'Поиск',
+    details: 'Детали',
+    delete: "Удалить",
+    actions: "Действия",
     loading: 'Загрузка...',
     download_json: 'Скачать JSON',
     no_courses: 'Нет курсов',
+  },
+  admin: {
+    users_title: "Управление пользователями",
+    search_user_placeholder: "Поиск по имени, email, ID или роли...",
+    search_transcript_placeholder: "Поиск по ФИО или факультету",
+    search_curriculum_placeholder: "Поиск по коду или названию программы",
+    name: "Имя",
+    role: "Роль",
+    registered_at: "Дата регистрации",
+    toggle_role: "Сменить роль",
+    error_fetch: "Ошибка при получении пользователей",
+    error_toggle_role: "Не удалось изменить роль",
+    error_delete: "Ошибка при удалении пользователя",
+    confirm_delete_user: "Вы уверены, что хотите удалить пользователя?"
+  },
+  transcript: {
+    all_transcripts: 'Все транскрипты',
   }
 }

@@ -225,3 +225,15 @@ def get_curriculum(curriculum_id: str, db: Session = Depends(get_db)):
         "courses":   _group_courses(cur.courses),
         "electives": _group_electives(cur.electives),
     }
+
+@router.delete("/{curriculum_id}", dependencies=[Depends(require_admin)])
+def delete_curriculum(curriculum_id: int, db: Session = Depends(get_db)):
+    cur = db.query(Curriculum).filter_by(id=curriculum_id).first()
+    if not cur:
+        raise HTTPException(status_code=404, detail="Curriculum not found")
+
+    db.query(Course).filter_by(curriculum_id=curriculum_id).delete()
+    db.query(Elective).filter_by(curriculum_id=curriculum_id).delete()
+
+    db.delete(cur)
+    db.commit()

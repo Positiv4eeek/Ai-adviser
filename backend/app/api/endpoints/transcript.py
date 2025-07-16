@@ -7,8 +7,9 @@ from typing import List
 from app.db import get_db
 from app.models import User, Transcript, TranscriptCourse, Curriculum
 from app.utils.parse_transcript import parse_transcript
-from app.utils.auth import get_current_user
+from app.utils.auth import get_current_user, require_admin
 from pydantic import BaseModel
+from app.utils.auth import UserRole
 
 router = APIRouter(prefix="/transcript", tags=["transcript"])
 
@@ -33,7 +34,9 @@ class TranscriptOut(BaseModel):
 
 class TranscriptSummary(BaseModel):
     id: int
+    student_id: str
     parsed_at: datetime
+    student_info: dict
 
 
 @router.post(
@@ -97,22 +100,29 @@ async def upload_transcript(
 
 @router.get(
     "/",
-    response_model=List[TranscriptSummary],
-    dependencies=[Depends(get_current_user)]
+    response_model=List[TranscriptSummary]
 )
 def list_transcripts(
+    user_id: str = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    if current_user.role != UserRole.admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied")
 
-    items = (
-        db.query(Transcript)
-          .filter_by(user_id=current_user.id)
-          .order_by(Transcript.parsed_at.desc())
-          .all()
-    )
+    query = db.query(Transcript)
+    if user_id:
+        query = query.filter_by(user_id=user_id)
+
+    items = query.order_by(Transcript.parsed_at.desc()).all()
+
     return [
-        {"id": t.id, "parsed_at": t.parsed_at}
+        {
+            "id": t.id,
+            "student_id": t.user_id,
+            "parsed_at": t.parsed_at,
+            "student_info": json.loads(t.student_info) if t.student_info else {}
+        }
         for t in items
     ]
 
@@ -252,3 +262,17 @@ def get_transcript(
     except Exception as e:
         print("Exception occurred:", str(e))
         raise HTTPException(status_code=500, detail="Server error")
+    
+@router.delete("/{transcript_id}", status_code=204)
+def delete_transcript(
+    transcript_id: int,
+    db: Session = Depends(get_db),
+    _: User = Depends(require_admin)
+):
+    transcript = db.query(Transcript).filter_by(id=transcript_id).first()
+    if not transcript:
+        raise HTTPException(status_code=404, detail="Transcript not found")
+
+    db.query(TranscriptCourse).filter_by(transcript_id=transcript_id).delete()
+    db.delete(transcript)
+    db.commit()
