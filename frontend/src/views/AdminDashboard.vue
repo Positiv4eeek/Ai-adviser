@@ -1,5 +1,6 @@
 <template>
   <div class="p-6 space-y-6 text-white">
+    <h2 class="text-4xl font-bold">{{ $t('nav.dashboard') }}</h2>
     <div class="flex gap-4">
       <button
         :class="tabClass(activeTab === 'users')"

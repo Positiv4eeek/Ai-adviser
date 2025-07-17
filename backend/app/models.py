@@ -96,6 +96,7 @@ class Elective(Base):
     exam_type        = Column(String, nullable=True)
     prerequisite     = Column(String, nullable=True)
     module           = Column(String, nullable=False)
+    is_available     = Column(Boolean, default=True)
 
     curriculum       = relationship("Curriculum", back_populates="electives")
 

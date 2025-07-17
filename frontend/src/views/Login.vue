@@ -61,6 +61,7 @@ async function submit() {
     const userRes = await axios.get('/auth/me')
     localStorage.setItem('user', JSON.stringify(userRes.data))
 
+    window.location.reload()
     router.push('/dashboard')
   } catch (e) {
     error.value = e.response?.data?.detail || t('login.error')

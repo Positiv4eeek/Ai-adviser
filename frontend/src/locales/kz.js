@@ -36,7 +36,9 @@ export default {
   home: {
     welcome: 'Қош келдіңіз',
     prompt: 'Транскриптіңізді жүктеу үшін, өтінеміз',
-    or: 'немесе'
+    or: 'немесе',
+    intro: "Бұл қызмет сіздің академиялық жолыңызды талдауға және оқу аяқтау үшін қандай пәндерді өту керектігін ұсынуға көмектеседі.",
+    uploadPrompt: "Талдауды бастау үшін транскриптіңізді жүктеңіз."
   },
   login: {
     email: 'Пошта',
@@ -48,9 +50,16 @@ export default {
   dashboard: {
     loading: 'Жүктелуде...',
     greeting: 'Сәлем, {firstName} {lastName}!',
-    role: 'Рөлі: {role}'
+    role: 'Рөлі: {role}',
+    authRequired: 'Қол жеткізу үшін авторизация қажет.',
+    fetchError: 'Профиль деректерін жүктеу кезінде қате',
+    tabInfo: "Ақпарат",
+    tabSettings: "Параметрлер",
+    email: "Пошта",
+    tabTranscriptAndCurriculum: "Транскрипт және оқу жоспары",
   },
   upload: {
+    no_transcript_found: 'Транскрипт табылмады',
     upload_new_transcript: "Жаңа транскрипт жүктеу",
     upload_transcript: 'Транскрипт жүктеу',
     upload_curriculum: 'Оқу жоспарын жүктеу',
@@ -63,6 +72,7 @@ export default {
     saved_id: "Сақталды ID {id}",
   },
   student: {
+    intake_year: 'Қабылдау жылы',
     student_id: 'Студент ID',
     transcript_detail: 'Транскрипт туралы мәліметтер',
     student_info: 'Студент туралы ақпарат',
@@ -95,9 +105,11 @@ export default {
       examType: 'Емтихан түрі',
       module: 'Модуль коды',
       credits: 'Кредиттер',
+      is_available: 'Қолжетімділік',
     }
   },
   curriculum: {
+    no_curricula: 'Оқу жоспарлары жоқ',
     all_curricula: 'Барлық оқу жоспарлары',
     choose_plan: 'Оқу жоспарын таңдаңыз',
     select_placeholder: 'Таңдау',
@@ -128,6 +140,13 @@ export default {
     actions: "Әрекеттер",
   },
   admin: {
+    role: 'Рөл',
+    name: 'Аты',
+    email: 'Электрондық пошта',
+    toggle_role: 'Рөлді ауыстыру',
+    registered_at: 'Тіркелген күні',
+    no_users: "Пайдаланушылар жоқ",
+    users_title: "Пайдаланушыларды басқару",
     search_user_placeholder: "Аты, email, ID немесе рөл бойынша іздеу...",
     search_transcript_placeholder: "Аты-жөні немесе факультет бойынша іздеу",
     search_curriculum_placeholder: "Бағдарлама коды немесе атауы бойынша іздеу",
@@ -142,6 +161,21 @@ export default {
     delete_error: 'Жазбаны жою кезінде қате пайда болды'
   },
   transcript: {
+    date: 'Күні',
+    no_transcripts: 'Транскрипттер жоқ',
     all_transcripts: 'Барлық транскрипттер',
+  },
+  profile: {
+    title: "Профиль",
+    firstName: "Аты",
+    lastName: "Тегі",
+    oldPassword: "Ескі құпия сөз",
+    newPassword: "Жаңа құпия сөз",
+    save: "Өзгерістерді сақтау",
+    saving: "Өзгерістерді сақтау...",
+    fetchError: "Профиль деректерін алу кезінде қате",
+    updateError: "Профильді жаңарту кезінде қате",
+    updated: "Профиль сәтті жаңартылды",
+    bothPasswordsRequired: "Ескі және жаңа құпия сөзді енгізіңіз"
   }
 }

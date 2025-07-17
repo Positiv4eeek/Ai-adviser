@@ -43,14 +43,23 @@ export default {
   home: {
     welcome: 'Welcome',
     prompt: 'To upload your transcript, please',
-    or: 'or'
+    or: 'or',
+    intro: "This service helps analyze your academic journey and suggests which courses to take to complete your degree.",
+    uploadPrompt: "Upload your transcript to start the analysis."
   },
   dashboard: {
     loading: 'Loading...',
     greeting: 'Hello, {firstName} {lastName}!',
-    role: 'Role: {role}'
+    role: 'Role: {role}',
+    authRequired: 'Authentication is required to access this page.',
+    fetchError: 'Error loading profile data',
+    tabInfo: "Info",
+    tabSettings: "Settings",
+    email: "Email",
+    tabTranscriptAndCurriculum: "Transcript and Curriculum",
   },
   upload: {
+    no_transcript_found: 'No transcript found',
     upload_new_transcript: "Upload New Transcript",
     upload_transcript: 'Upload transcript',
     upload_curriculum: 'Upload curriculum',
@@ -63,6 +72,7 @@ export default {
     saved_id: "Saved with ID {id}",
   },
   student: {
+    intake_year: 'Intake Year',
     student_id: 'Student ID',
     transcript_detail: 'Transcript Details',
     student_info: 'Student Info',
@@ -95,9 +105,11 @@ export default {
       examType: 'Exam Type',
       module: 'Module Code',
       credits: 'Credits',
+      is_available: 'Availability',
     }
   },
   curriculum: {
+    no_curricula: 'No curricula available',
     all_curricula: 'All Curricula',
     choose_plan: 'Choose Curriculum',
     select_placeholder: 'Select',
@@ -128,6 +140,11 @@ export default {
     actions: "Actions",
   },
   admin: {
+    registered_at: 'Registered At',
+    role: 'Role',
+    toggle_role: 'Toggle Role',
+    no_users: "No users",
+    users_title: "Manage Users",
     search_user_placeholder: "Search by name, email, ID or role...",
     search_transcript_placeholder: "Search by name or faculty",
     search_curriculum_placeholder: "Search by program code or name",
@@ -144,6 +161,21 @@ export default {
     delete_error: 'Error deleting user'
   },
   transcript: {
+    date: 'Date',
+    no_transcripts: 'No transcripts available',
     all_transcripts: 'All Transcripts',
-  }
+  },
+  profile: {
+    title: "Profile",
+    firstName: "First Name",
+    lastName: "Last Name",
+    oldPassword: "Old Password",
+    newPassword: "New Password",
+    save: "Save Changes",
+    saving: "Saving...",
+    fetchError: "Error fetching profile data",
+    updateError: "Error updating profile",
+    updated: "Profile updated successfully",
+    bothPasswordsRequired: "Please enter both old and new passwords"
+  },
 }

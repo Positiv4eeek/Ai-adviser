@@ -9,9 +9,9 @@ import AdminDashboard from '@/views/AdminDashboard.vue'
 
 const routes = [
   { path: '/',         component: Home },
-  { path: '/login',    component: Login },
-  { path: '/register', component: Register },
-  { path: '/verify',   component: Verify, name: 'Verify' },
+  { path: '/login',    component: Login, meta: { guestOnly: true } },
+  { path: '/register', component: Register, meta: { guestOnly: true } },
+  { path: '/verify',   component: Verify, name: 'Verify', meta: { guestOnly: true } },
   {
     path: '/dashboard',
     component: Dashboard,
@@ -53,6 +53,10 @@ router.beforeEach((to, _, next) => {
     if (!user || user.role !== to.meta.requiresRole) {
       return next('/')
     }
+  }
+
+  if (to.meta.guestOnly && token) {
+    return next('/dashboard')
   }
 
   next()

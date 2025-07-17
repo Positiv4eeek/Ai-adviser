@@ -1,11 +1,12 @@
 import secrets
 from datetime import datetime, timedelta
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Body
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, constr
 
+from typing import Optional
 from app.db import get_db, settings
 from app.models import User, UserRole, EmailVerification
 from app.utils.auth import create_access_token, get_current_user
@@ -34,6 +35,12 @@ class UserOut(BaseModel):
     last_name: str
     email: str
     role: str
+
+class UpdateProfileRequest(BaseModel):
+    first_name: str | None = None
+    last_name: str | None = None
+    old_password: str | None = None
+    password: str | None = None
 
 @router.post("/register", status_code=201)
 async def register(data: RegisterRequest, db: Session = Depends(get_db)):
@@ -117,4 +124,38 @@ def login(
 
 @router.get("/me", response_model=UserOut)
 def read_current_user(user: User = Depends(get_current_user)):
+    return user
+
+@router.patch("/me", response_model=UserOut)
+def update_profile(
+    data: UpdateProfileRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    user = db.query(User).filter(User.id == current_user.id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    updated = False
+
+    if data.first_name:
+        user.first_name = data.first_name
+        updated = True
+
+    if data.last_name:
+        user.last_name = data.last_name
+        updated = True
+
+    if data.password or data.old_password:
+        if not data.password or not data.old_password:
+            raise HTTPException(status_code=400, detail="Both old and new password must be provided")
+        if not user.verify_password(data.old_password):
+            raise HTTPException(status_code=400, detail="Incorrect old password")
+        user.hashed_password = User.hash_password(data.password)
+        updated = True
+
+    if updated:
+        db.commit()
+        db.refresh(user)
+
     return user

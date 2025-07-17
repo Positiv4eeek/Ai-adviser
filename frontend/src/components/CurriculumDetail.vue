@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data" class="p-6 space-y-8">
+  <div v-if="data" class="space-y-8">
 
     <div v-if="!hideMetadata" class="bg-zinc-800 p-6 rounded-xl text-white space-y-6">
       <h2 class="text-2xl font-bold text-center">
@@ -109,6 +109,7 @@
               <th class="px-3 py-2">{{ $t('courses.headers.contactHours') }}</th>
               <th class="px-3 py-2">{{ $t('courses.headers.examType') }}</th>
               <th class="px-3 py-2">{{ $t('courses.headers.module') }}</th>
+              <th class="px-3 py-2">{{ $t('courses.headers.is_available') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -127,6 +128,23 @@
               <td class="px-3 py-2 text-center">{{ e.contact_hours ?? '—' }}</td>
               <td class="px-3 py-2 text-center">{{ e.exam_type }}</td>
               <td class="px-3 py-2 text-center">{{ e.module }}</td>
+              <td class="px-3 py-2 text-center">
+                <label class="inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    :checked="e.is_available"
+                    @change="toggleAvailability(e)"
+                    class="sr-only peer"
+                  />
+                  <div
+                    class="w-5 h-5 rounded border border-gray-300 peer-checked:bg-blue-600 peer-checked:border-blue-600 transition flex items-center justify-center"
+                  >
+                    <svg v-if="e.is_available" class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                </label>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -134,7 +152,7 @@
     </div>
   </div>
 
-  <p v-else class="text-white text-center mt-10">Загрузка...</p>
+  <p v-else class="text-white text-center mt-10">{{ $t('general.loading') }}</p>
 </template>
 
 <script setup>
@@ -161,6 +179,17 @@ async function fetchDetail() {
   } catch (err) {
     error.value = err.response?.data?.detail || err.message
     console.error('Ошибка при загрузке данных учебного плана:', error.value)
+  }
+}
+
+async function toggleAvailability(elective) {
+  try {
+    await axios.patch(`/curriculum/elective/${elective.id}`, {
+      is_available: !elective.is_available
+    })
+    elective.is_available = !elective.is_available
+  } catch (err) {
+    console.error('Failed to update availability', err)
   }
 }
 

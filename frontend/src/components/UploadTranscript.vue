@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 space-y-8">
+  <div class="space-y-8">
 
     <div v-if="transcriptResult && !showUploadForm" class="text-center">
       <button

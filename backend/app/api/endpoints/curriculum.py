@@ -12,6 +12,8 @@ from typing import List, Dict, Any
 
 router = APIRouter(prefix="/curriculum", tags=["curriculum"])
 
+class ElectiveAvailabilityUpdate(BaseModel):
+    is_available: bool
 
 def _sanitize(obj):
     if isinstance(obj, float) and math.isnan(obj):
@@ -191,6 +193,7 @@ def _group_electives(electives: List[Elective]):
     for e in electives:
         grp = e.group_name
         out.setdefault(grp, []).append({
+            "id":              e.id,
             "block":           e.block,
             "discipline_code": e.discipline_code,
             "discipline_name": e.discipline_name,
@@ -200,6 +203,7 @@ def _group_electives(electives: List[Elective]):
             "exam_type":       e.exam_type,
             "prerequisite":    e.prerequisite,
             "module":          e.module,
+            "is_available":    e.is_available,
         })
     return out
 
@@ -237,3 +241,22 @@ def delete_curriculum(curriculum_id: int, db: Session = Depends(get_db)):
 
     db.delete(cur)
     db.commit()
+
+@router.patch(
+    "/elective/{elective_id}",
+    dependencies=[Depends(require_admin)],
+    status_code=200,
+)
+def update_elective_availability(
+    elective_id: int,
+    payload: ElectiveAvailabilityUpdate,
+    db: Session = Depends(get_db)
+):
+    elective = db.query(Elective).filter_by(id=elective_id).first()
+    if not elective:
+        raise HTTPException(status_code=404, detail="Elective not found")
+
+    elective.is_available = payload.is_available
+    db.commit()
+    db.refresh(elective)
+    return {"message": "Elective availability updated", "is_available": elective.is_available}

@@ -5,6 +5,7 @@
     <hr class="border-gray-700" />
 
     <CurriculumList @select="selectCurriculum" />
+    <hr class="border-gray-700" />
 
     <div v-if="selectedId" class="mt-4">
       <CurriculumDetail v-if="selectedId" :curriculum-id="selectedId" />

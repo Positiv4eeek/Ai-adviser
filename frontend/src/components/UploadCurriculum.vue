@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-8">
     <div class="bg-zinc-800 p-6 rounded-xl text-white space-y-4">
-      <h2 class="text-2xl font-bold text-center">{{ t('upload.upload_curriculum') }}</h2>
+      <h2 class="text-xl font-bold text-center">{{ t('upload.upload_curriculum') }}</h2>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
         <label
           for="curr-upload"

@@ -34,9 +34,11 @@ export default {
     verificationSent: 'Письмо с подтверждением отправлено, проверьте вашу почту.'
   },
   home: {
-    welcome: 'Добро пожаловать',
-    prompt: 'Чтобы загружать свой транскрипт, пожалуйста,',
-    or: 'или'
+    welcome: "Добро пожаловать в AI Adviser",
+    intro: "Этот сервис помогает анализировать ваш академический путь и предлагает, какие дисциплины стоит пройти для завершения обучения.",
+    prompt: "Чтобы начать, пожалуйста,",
+    or: "или",
+    uploadPrompt: "Загрузите свой транскрипт, чтобы начать анализ."
   },
   login: {
     email: 'Почта',
@@ -46,11 +48,18 @@ export default {
     error: 'Ошибка входа'
   },
   dashboard: {
-    loading: 'Загрузка...',
-    greeting: 'Привет, {firstName} {lastName}!',
-    role: 'Роль: {role}'
+    greeting: "Здравствуйте, {firstName} {lastName}!",
+    role: "Ваша роль: {role}",
+    loading: "Загрузка профиля...",
+    authRequired: "Для доступа необходимо авторизоваться.",
+    fetchError: "Ошибка при загрузке данных профиля.",
+    tabInfo: "Информация",
+    tabSettings: "Настройки",
+    email: "Почта",
+    tabTranscriptAndCurriculum: "Транскрипт и учебный план",
   },
   upload: {
+    no_transcript_found: 'Транскрипт не найден',
     upload_new_transcript: "Загрузить новый транскрипт",
     upload_transcript: 'Загрузить транскрипт',
     upload_curriculum: 'Загрузить учебный план',
@@ -63,6 +72,7 @@ export default {
     saved_id: "Сохранено с ID {id}",
   },
   student: {
+    intake_year: 'Год поступления',
     student_id: 'ID студента',
     transcript_detail: 'Детали транскрипта',
     student_info: 'Информация о студенте',
@@ -95,9 +105,11 @@ export default {
       examType: 'Тип экзамена',
       module: 'Шифр модуля',
       credits: 'Кредиты',
+      is_available: 'Доступность',
     }
   },
   curriculum: {
+    no_curricula: 'Нет учебных планов',
     all_curricula: 'Все учебные планы',
     choose_plan: 'Выберите учебный план',
     select_placeholder: 'Выбрать',
@@ -128,6 +140,7 @@ export default {
     no_courses: 'Нет курсов',
   },
   admin: {
+    no_users: "Нет пользователей",
     users_title: "Управление пользователями",
     search_user_placeholder: "Поиск по имени, email, ID или роли...",
     search_transcript_placeholder: "Поиск по ФИО или факультету",
@@ -142,6 +155,21 @@ export default {
     confirm_delete_user: "Вы уверены, что хотите удалить пользователя?"
   },
   transcript: {
+    date: 'Дата',
+    no_transcripts: 'Нет транскриптов',
     all_transcripts: 'Все транскрипты',
+  },
+  profile: {
+    title: "Профиль",
+    firstName: "Имя",
+    lastName: "Фамилия",
+    oldPassword: "Старый пароль",
+    newPassword: "Новый пароль",
+    save: "Сохранить изменения",
+    saving: "Сохранение...",
+    fetchError: "Ошибка при получении данных профиля",
+    updateError: "Ошибка при обновлении профиля",
+    updated: "Профиль успешно обновлён",
+    bothPasswordsRequired: "Введите и старый, и новый пароль"
   }
 }
