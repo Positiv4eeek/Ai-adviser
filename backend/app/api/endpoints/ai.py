@@ -22,6 +22,7 @@ def recommend_courses(
         data = get_current_transcript(user=user, db=db)
         transcript_courses = data["courses"]
         curriculum = data.get("curriculum")
+        student_info = data["student_info"]
 
         if not curriculum:
             raise HTTPException(404, "No matching curriculum found")
@@ -29,6 +30,7 @@ def recommend_courses(
         template = get_prompt_content(request.prompt_name, db)
 
         prompt = template.format(
+            student_info=student_info,
             transcript_courses=transcript_courses,
             curriculum_courses=curriculum["courses"],
             curriculum_electives=curriculum["electives"]
