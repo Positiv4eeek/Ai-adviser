@@ -1,4 +1,4 @@
-# AI-Adviser: Интеллектуальный помощник для академического планирования
+# AI-Adviser: Intelligent Assistant for Academic Planning
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
@@ -7,28 +7,33 @@
 
 ---
 
-## 📖 Описание
+## 📖 Description
 
-**AI-Adviser** — веб-приложение, которое помогает студентам и администраторам вузов:
+**AI-Adviser** is a web application designed to assist university students and administrators with:
 
-1. Автоматически извлекать данные из PDF-транскриптов (Платонус).  
-2. Сопоставлять транскрипт с учебным планом (куррикулумом).  
-3. Генерировать рекомендации по обязательным и элективным дисциплинам на следующий семестр с учётом пререквизитов и доступных курсов.  
-4. Управлять учебными планами, курсами и AI-промптами через админ-панель.
+1. Automatically extracting data from academic transcripts in PDF format (Platonus).
+2. Matching the transcript with the official curriculum.
+3. Generating course recommendations for the upcoming semester, considering prerequisites and available offerings.
+4. Managing curricula, courses, and AI prompts through an admin panel.
 
 ---
 
-## 🚀 Ключевой функционал
+## 🚀 Key Features
 
-### Студент
-- Загрузка PDF-транскрипта.  
-- Парсинг ФИО, направления, года поступления и списка изученных курсов.  
-- Прогресс-бар и дерево курсов по семестрам.  
-- Список рекомендованных дисциплин.
+### For Students
 
-### Администратор
-- Управление учебными планами (Excel/CSV/JSON).  
-- Загрузка списка открытых дисциплин текущего семестра.  
-- Редактирование AI-промптов для генерации рекомендаций.  
-- Просмотр истории загрузок и рекомендаций.
+* Upload PDF academic transcripts.
+* Parse full name, major, year of enrollment, and the list of completed courses.
+* Display progress bar and a course tree by semesters.
+* View a list of recommended courses.
 
+### For Administrators
+
+* Manage curricula (Excel/CSV/JSON formats).
+* Upload the list of courses offered in the current semester.
+* Edit AI prompts used for recommendation generation.
+* View upload history and generated recommendations.
+
+---
+
+Let me know if you’d like a more technical or marketing-style version of this!
