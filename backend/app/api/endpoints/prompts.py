@@ -19,7 +19,7 @@ class PromptCreate(PromptBase):
     pass
 
 class PromptUpdate(BaseModel):
-    description: str | None = None
+    name: str | None = None
     content: str | None = None
 
 class PromptOut(PromptBase):

@@ -129,15 +129,19 @@
               <td class="px-3 py-2 text-center">{{ e.exam_type }}</td>
               <td class="px-3 py-2 text-center">{{ e.module }}</td>
               <td class="px-3 py-2 text-center">
-                <label class="inline-flex items-center cursor-pointer">
+                <label class="inline-flex items-center cursor-default">
                   <input
                     type="checkbox"
                     :checked="e.is_available"
+                    :disabled="!isAdmin"
                     @change="toggleAvailability(e)"
                     class="sr-only peer"
                   />
                   <div
-                    class="w-5 h-5 rounded border border-gray-300 peer-checked:bg-blue-600 peer-checked:border-blue-600 transition flex items-center justify-center"
+                    class="w-5 h-5 rounded border border-gray-300 
+                          peer-checked:bg-blue-600 peer-checked:border-blue-600 
+                          transition flex items-center justify-center"
+                    :class="{ 'cursor-pointer': isAdmin, 'opacity-100': !isAdmin }"
                   >
                     <svg v-if="e.is_available" class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -162,7 +166,8 @@ import { useI18n } from 'vue-i18n'
 
 const props = defineProps({
   curriculumId: { type: [String, Number], required: true },
-  hideMetadata: { type: Boolean, default: false }
+  hideMetadata: { type: Boolean, default: false },
+  isAdmin: { type: Boolean, default: false }
 })
 
 const { t } = useI18n()

@@ -8,7 +8,7 @@ from app.models import User, UserRole
 from app.utils.auth import get_current_user, require_admin
 
 
-router = APIRouter(prefix="/admin/users", tags=["Admin: Users"], dependencies=[Depends(require_admin)])
+router = APIRouter(prefix="/admin/users", tags=["admin-users"], dependencies=[Depends(require_admin)])
 
 class UserSummary(BaseModel):
     id: str

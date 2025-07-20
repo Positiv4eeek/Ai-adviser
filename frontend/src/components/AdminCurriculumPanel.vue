@@ -8,7 +8,7 @@
     <hr class="border-gray-700" />
 
     <div v-if="selectedId" class="mt-4">
-      <CurriculumDetail v-if="selectedId" :curriculum-id="selectedId" />
+      <CurriculumDetail v-if="selectedId" :curriculum-id="selectedId" :is-admin="userRole === 'admin'" />
       <div class="text-center mt-4">
         <button
           @click="selectedId = null"
@@ -22,14 +22,26 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+
 import UploadCurriculum from '@/components/UploadCurriculum.vue'
 import CurriculumList from '@/components/CurriculumList.vue'
 import CurriculumDetail from '@/components/CurriculumDetail.vue'
 
 const selectedId = ref(null)
+const userRole = ref(null)
 
 const selectCurriculum = (id) => {
   selectedId.value = id
 }
+
+onMounted(async () => {
+  try {
+    const { data } = await axios.get('/auth/me')
+    userRole.value = data.role
+  } catch (err) {
+    console.error('Ошибка при получении роли:', err)
+  }
+})
 </script>

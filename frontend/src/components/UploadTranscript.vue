@@ -46,7 +46,7 @@
         {{ $t('upload.no_transcript_found') }}
       </p>
     </div>
-
+    <h2 class="text-2xl font-bold text-center">{{ $t('nav.transcript')}}</h2>
     <div
       v-if="transcriptResult"
       class="w-fit bg-zinc-800 p-6 rounded-xl text-white space-y-6 mx-auto"
@@ -141,11 +141,16 @@
       </div>
     </div>
   </div>
+    <div v-if="transcriptResult?.curriculum?.id">
+      <h2 class="text-2xl font-bold text-center p-6">{{ $t('nav.curriculum') }}</h2>
+      <CurriculumDetail :curriculum-id="transcriptResult.curriculum.id"/>
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import CurriculumDetail from '@/components/CurriculumDetail.vue'
 
 const transcriptFile = ref(null)
 const transcriptResult = ref(null)
