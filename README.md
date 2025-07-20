@@ -33,7 +33,3 @@
 * Upload the list of courses offered in the current semester.
 * Edit AI prompts used for recommendation generation.
 * View upload history and generated recommendations.
-
----
-
-Let me know if you’d like a more technical or marketing-style version of this!
