@@ -1,12 +1,11 @@
 import secrets
 from datetime import datetime, timedelta
 
-from fastapi import APIRouter, Depends, HTTPException, status, Body
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from pydantic import BaseModel, EmailStr, constr
+from pydantic import BaseModel, EmailStr
 
-from typing import Optional
 from app.db import get_db, settings
 from app.models import User, UserRole, EmailVerification
 from app.utils.auth import create_access_token, get_current_user

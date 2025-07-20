@@ -16,6 +16,11 @@
         :class="tabClass(activeTab === 'curricula')"
         @click="activeTab = 'curricula'"
       >{{ $t('nav.curriculum') }}</button>
+
+      <button
+        :class="tabClass(activeTab === 'prompts')"
+        @click="activeTab = 'prompts'"
+      >{{ $t('nav.prompts') }}</button>
     </div>
 
     <div v-if="activeTab === 'users'">
@@ -29,6 +34,9 @@
     <div v-if="activeTab === 'curricula'">
       <AdminCurriculumPanel />
     </div>
+    <div v-if="activeTab === 'prompts'">
+      <AdminPromptPanel />
+    </div>
   </div>
 </template>
 
@@ -37,6 +45,7 @@ import { ref } from 'vue'
 import AdminUserPanel from '@/components/AdminUserPanel.vue'
 import AdminTranscriptPanel from '@/components/AdminTranscriptPanel.vue'
 import AdminCurriculumPanel from '@/components/AdminCurriculumPanel.vue'
+import AdminPromptPanel from '@/components/AdminPromptPanel.vue'
 
 const activeTab = ref('users')
 

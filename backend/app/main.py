@@ -6,6 +6,8 @@ from app.api.endpoints.auth import router as auth_router
 from app.api.endpoints.curriculum import router as curriculum_router
 from app.api.endpoints.transcript import router as transcript_router
 from app.api.endpoints.user import router as user_router
+from app.api.endpoints.ai import router as ai_router
+from app.api.endpoints.prompts import router as prompts_router
 from app.db import Base, engine
 
 Base.metadata.create_all(bind=engine)
@@ -35,3 +37,7 @@ app.include_router(curriculum_router)
 app.include_router(transcript_router)
 
 app.include_router(user_router)
+
+app.include_router(ai_router)
+
+app.include_router(prompts_router)

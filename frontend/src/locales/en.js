@@ -12,6 +12,7 @@ export default {
     verify:    'Verify',
     upload_curriculum: 'Upload Curriculum',
     list_curriculum: 'Curriculum List',
+    prompts: 'AI Prompts',
   },
   verify: {
     email: 'Email',
@@ -57,6 +58,14 @@ export default {
     tabSettings: "Settings",
     email: "Email",
     tabTranscriptAndCurriculum: "Transcript and Curriculum",
+    ai_recommendations: "AI Recommendations",
+    selectPrompt: "Select prompt",
+    getRecommendations: "Get recommendations",
+    ai_history: "AI History",
+    no_history: "No recommendations yet.",
+    prompt_name: "Prompt",
+    prompt_input: "Prompt Input",
+    response: "AI Response"
   },
   upload: {
     no_transcript_found: 'No transcript found',
@@ -158,7 +167,21 @@ export default {
     delete_user: 'Delete User',
     confirm_delete: 'Are you sure you want to delete this user?',
     delete_success: 'User deleted successfully',
-    delete_error: 'Error deleting user'
+    delete_error: 'Error deleting user',
+    prompts: "AI Prompts",
+    promptName: "Prompt name",
+    promptContent: "Prompt content",
+    addPrompt: "Add prompt",
+    created: "Prompt successfully created",
+    updated: "Prompt updated",
+    deleted: "Prompt deleted",
+    noPrompts: "No prompts found",
+    fetchError: "Failed to fetch prompts",
+    createError: "Failed to create prompt",
+    updateError: "Failed to update prompt",
+    deleteError: "Failed to delete prompt",
+    save: "Save",
+    delete: "Delete"
   },
   transcript: {
     date: 'Date',

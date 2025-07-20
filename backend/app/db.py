@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     smtp_host: str = "smtp.gmail.com"
     smtp_port: int = 587
 
+    openai_api_key: str | None = None
+
     class Config:
         env_file = ".env"
 

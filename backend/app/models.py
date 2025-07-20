@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime
 from sqlalchemy import (
     Column, String, DateTime, Enum as SQLEnum,
-    Integer, Float, Boolean, ForeignKey
+    Integer, Float, Boolean, ForeignKey, Text
 )
 from sqlalchemy.orm import relationship
 from passlib.context import CryptContext
@@ -26,6 +26,7 @@ class User(Base):
     hashed_password  = Column(String, nullable=False)
     role             = Column(SQLEnum(UserRole), nullable=False, default=UserRole.student)
     created_at       = Column(DateTime, default=datetime.utcnow)
+    recommendations  = relationship("RecommendationLog", back_populates="user")
 
     @classmethod
     def hash_password(cls, pwd: str) -> str:
@@ -129,4 +130,23 @@ class TranscriptCourse(Base):
     grade_traditional= Column(String, nullable=True)
     is_retake        = Column(Boolean, default=False)
 
+class AIPrompt(Base):
+    __tablename__ = "ai_prompts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100), unique=True, nullable=False)
+    description = Column(String(255))
+    content = Column(Text, nullable=False)
     
+
+class RecommendationLog(Base):
+    __tablename__ = "recommendation_logs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(String, ForeignKey("users.id"))
+    prompt_name = Column(String)
+    prompt_input = Column(Text)
+    response = Column(Text)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="recommendations")

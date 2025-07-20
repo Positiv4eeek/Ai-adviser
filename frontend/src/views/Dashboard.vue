@@ -23,6 +23,16 @@
           @click="activeTab = 'transcript_curriculum'"
         >{{ $t('dashboard.tabTranscriptAndCurriculum') }}</button>
 
+        <button
+          :class="tabClass(activeTab === 'ai_recommendations')"
+          @click="activeTab = 'ai_recommendations'"
+        >{{ $t('dashboard.ai_recommendations') }}</button>
+
+        <button
+          :class="tabClass(activeTab === 'ai_history_recommendations')"
+          @click="activeTab = 'ai_history_recommendations'"
+        >{{ $t('dashboard.ai_history_recommendations') }}</button>
+
       </div>
 
       <div v-if="activeTab === 'info'" class="mt-4 space-y-2">
@@ -39,6 +49,14 @@
         <UploadTranscript />
       </div>
 
+      <div v-if="activeTab === 'ai_recommendations'" class="mt-4">
+        <AiRecommendations />
+      </div>
+
+      <div v-if="activeTab === 'ai_history_recommendations'" class="mt-4">
+        <AiHistory />
+      </div>
+
     </div>
 
     <div v-else>
@@ -53,6 +71,8 @@ import axios from 'axios'
 import { useI18n } from 'vue-i18n'
 import ProfileSettings from '@/views/Settings.vue'
 import UploadTranscript from '@/components/UploadTranscript.vue'
+import AiRecommendations from '@/components/AiRecommendations.vue'
+import AiHistory from '@/components/AiHistory.vue'
 
 const { t } = useI18n()
 const user = ref(null)
