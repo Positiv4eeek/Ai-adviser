@@ -4,7 +4,8 @@ import pandas as pd
 from collections import defaultdict
 
 def normalize_text(text):
-    return unicodedata.normalize("NFKC", text)
+    text = unicodedata.normalize("NFKC", text)
+    return re.sub(r'\s+', ' ', text).strip()
 
 def detect_language(text_lines):
     joined = " ".join(text_lines).lower()
@@ -111,15 +112,15 @@ def parse_curriculum(excel_path):
                 continue
 
             entry = {
-                "block": r["block"],
-                "discipline_code": r["discipline_code"],
-                "discipline_name": r["name"],
+                "block": normalize_text(str(r["block"])).strip(),
+                "discipline_code": normalize_text(str(r["discipline_code"])).strip(),
+                "discipline_name": normalize_text(str(r["name"])).strip(),
                 "credits": r["credits"],
                 "contact_hours": r["contact_hours"],
-                "exam_type": r["exam_type"],
-                "discipline_type": r["discipline_type"],
-                "prerequisite": r["prerequisite"],
-                "module": r["module"]
+                "exam_type": normalize_text(str(r["exam_type"])).strip(),
+                "discipline_type": normalize_text(str(r["discipline_type"])).strip(),
+                "prerequisite": normalize_text(str(r["prerequisite"])).strip(),
+                "module": normalize_text(str(r["module"])).strip()
             }
 
             if in_el:

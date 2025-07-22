@@ -66,7 +66,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { useI18n } from 'vue-i18n'
 import ProfileSettings from '@/views/Settings.vue'
@@ -77,7 +77,13 @@ import AiHistory from '@/components/AiHistory.vue'
 const { t } = useI18n()
 const user = ref(null)
 const error = ref('')
-const activeTab = ref('info')
+
+const STORAGE_KEY = 'dashboard-active-tab'
+const activeTab = ref(localStorage.getItem(STORAGE_KEY) || 'info')
+
+watch(activeTab, (newTab) => {
+  localStorage.setItem(STORAGE_KEY, newTab)
+})
 
 onMounted(async () => {
   const token = localStorage.getItem('token')

@@ -143,14 +143,17 @@
   </div>
     <div v-if="transcriptResult?.curriculum?.id">
       <h2 class="text-2xl font-bold text-center p-6">{{ $t('nav.curriculum') }}</h2>
-      <CurriculumDetail :curriculum-id="transcriptResult.curriculum.id"/>
+      <CurriculumDetail :curriculum-id="transcriptResult.curriculum.id" :hideMetadata="true"/>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import { useI18n } from 'vue-i18n'
 import CurriculumDetail from '@/components/CurriculumDetail.vue'
+
+const { t } = useI18n()
 
 const transcriptFile = ref(null)
 const transcriptResult = ref(null)
@@ -177,7 +180,7 @@ async function fetchUserTranscript() {
     if (e.response?.status === 404) {
       noTranscript.value = true
     } else {
-      error.value = 'Не удалось загрузить транскрипт'
+      error.value = t('transcript.fetch_error')
     }
   } finally {
     loading.value = false

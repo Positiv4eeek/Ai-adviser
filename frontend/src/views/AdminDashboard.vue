@@ -21,6 +21,11 @@
         :class="tabClass(activeTab === 'prompts')"
         @click="activeTab = 'prompts'"
       >{{ $t('nav.prompts') }}</button>
+
+      <button
+        :class="tabClass(activeTab === 'ai_settings')"
+        @click="activeTab = 'ai_settings'"
+      >{{ $t('nav.ai_settings') }}</button>
     </div>
 
     <div v-if="activeTab === 'users'">
@@ -37,17 +42,29 @@
     <div v-if="activeTab === 'prompts'">
       <AdminPromptPanel />
     </div>
+
+    <div v-if="activeTab === 'ai_settings'">
+      <AdminAiSettingsPanel />
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import AdminUserPanel from '@/components/AdminUserPanel.vue'
 import AdminTranscriptPanel from '@/components/AdminTranscriptPanel.vue'
 import AdminCurriculumPanel from '@/components/AdminCurriculumPanel.vue'
 import AdminPromptPanel from '@/components/AdminPromptPanel.vue'
+import AdminAiSettingsPanel from '@/components/AdminAiSettingsPanel.vue'
 
-const activeTab = ref('users')
+
+const STORAGE_KEY = 'admin-active-tab'
+
+const activeTab = ref(localStorage.getItem(STORAGE_KEY) || 'users')
+
+watch(activeTab, (newTab) => {
+  localStorage.setItem(STORAGE_KEY, newTab)
+})
 
 const tabClass = (isActive) => [
   'px-4 py-2 font-semibold rounded transition text-white',

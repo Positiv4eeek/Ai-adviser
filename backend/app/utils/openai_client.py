@@ -1,26 +1,40 @@
 from openai import OpenAI
-from app.db import settings
 from sqlalchemy.orm import Session
-from app.models import AIPrompt
 from fastapi import HTTPException
+from app.db import settings
+from app.models import AIPrompt, AISettings
 
 client = OpenAI(api_key=settings.openai_api_key)
 
-def ask_gpt(prompt: str) -> str:
+def ask_gpt(prompt: str, db: Session) -> str:
+    settings_row = db.query(AISettings).first()
+    if not settings_row:
+        raise HTTPException(status_code=500, detail="AI settings not configured.")
+
+    if not all([settings_row.model, settings_row.system_prompt, settings_row.temperature is not None, settings_row.max_tokens]):
+        raise HTTPException(status_code=500, detail="Incomplete AI settings.")
+
     try:
         response = client.chat.completions.create(
-            model="gpt-4.1-nano", 
+            model=settings_row.model,
             messages=[
-                {"role": "system", "content": "You are an academic adviser helping students choose their next courses."},
-                {"role": "user", "content": prompt},
+                {
+                    "role": "system",
+                    "content": settings_row.system_prompt
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                },
             ],
-            temperature=0.7
+            temperature=settings_row.temperature,
+            max_tokens=settings_row.max_tokens
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
         print(f"[OpenAI Error] {e}")
-        return "Sorry, I couldn't generate a recommendation at this time."
-    
+        return "Извините, не удалось получить ответ от модели."
+
 def get_prompt_content(name: str, db: Session) -> str:
     prompt = db.query(AIPrompt).filter(AIPrompt.name == name).first()
     if not prompt:

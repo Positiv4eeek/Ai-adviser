@@ -13,6 +13,7 @@ export default {
     upload_curriculum: 'Upload Curriculum',
     list_curriculum: 'Curriculum List',
     prompts: 'AI Prompts',
+    ai_settings: "AI Settings"
   },
   verify: {
     email: 'Email',
@@ -49,23 +50,33 @@ export default {
     uploadPrompt: "Upload your transcript to start the analysis."
   },
   dashboard: {
-    loading: 'Loading...',
-    greeting: 'Hello, {firstName} {lastName}!',
-    role: 'Role: {role}',
-    authRequired: 'Authentication is required to access this page.',
-    fetchError: 'Error loading profile data',
-    tabInfo: "Info",
+    greeting: "Hello, {firstName} {lastName}!",
+    role: "Your role: {role}",
+    loading: "Loading profile...",
+    authRequired: "Authorization is required to access.",
+    fetchError: "An error occurred while loading profile data.",
+    tabInfo: "Information",
     tabSettings: "Settings",
     email: "Email",
     tabTranscriptAndCurriculum: "Transcript and Curriculum",
     ai_recommendations: "AI Recommendations",
-    selectPrompt: "Select prompt",
-    getRecommendations: "Get recommendations",
-    ai_history: "AI History",
-    no_history: "No recommendations yet.",
+    ai_history_recommendations: "Recommendation History",
+    selectPrompt: "Select Prompt",
+    getRecommendations: "Get Recommendations",
+    ai_history: "AI Recommendation History",
+    no_history: "No recommendations yet",
     prompt_name: "Prompt",
     prompt_input: "Prompt Input",
-    response: "AI Response"
+    show_details: "Show Details",
+    hide_details: "Hide Details",
+    ai_response: "AI Response",
+    recommended_courses: "Recommended Courses",
+    course_type_required: "Required",
+    course_type_elective: "Elective",
+    course_type_repeat: "Repeat",
+    comment: "Comment",
+    prerequisites: "Prerequisites",
+    json_error: "JSON parsing error"
   },
   upload: {
     no_transcript_found: 'No transcript found',
@@ -81,6 +92,7 @@ export default {
     saved_id: "Saved with ID {id}",
   },
   student: {
+    id: "ID",
     intake_year: 'Intake Year',
     student_id: 'Student ID',
     transcript_detail: 'Transcript Details',
@@ -128,6 +140,8 @@ export default {
     curriculum_metadata: 'Curriculum Data',
     intake_year: 'Intake Year',
     total_credits: 'Total Credits',
+    fetch_error: "Failed to load curriculum data",
+    toggle_error: "Failed to update elective availability"
   },
   tabs: {
     course_short: 'course',
@@ -143,10 +157,12 @@ export default {
     search_placeholder: 'Search',
     details: 'Details',
     loading: 'Loading...',
+    save: "Save",
     download_json: 'Download JSON',
     no_courses: 'No courses',
     delete: "Delete",
     actions: "Actions",
+    cancel: "Cancel"
   },
   admin: {
     registered_at: 'Registered At',
@@ -171,6 +187,7 @@ export default {
     prompts: "AI Prompts",
     promptName: "Prompt name",
     promptContent: "Prompt content",
+    promptDescription: "Description",
     addPrompt: "Add prompt",
     created: "Prompt successfully created",
     updated: "Prompt updated",
@@ -180,13 +197,26 @@ export default {
     createError: "Failed to create prompt",
     updateError: "Failed to update prompt",
     deleteError: "Failed to delete prompt",
+    editPrompt: "Edit prompt",
+    searchPrompt: "Search prompts",
     save: "Save",
-    delete: "Delete"
+    delete: "Delete",
+    email: "Email",
+    id: "ID",
+    aiSettingsTitle: "AI Settings",
+    model: "Model",
+    systemPrompt: "System Prompt",
+    temperature: "Temperature",
+    maxTokens: "Max Tokens",
+    settingsSaved: "Settings saved successfully"
   },
   transcript: {
     date: 'Date',
     no_transcripts: 'No transcripts available',
     all_transcripts: 'All Transcripts',
+    confirm_delete: "Are you sure you want to delete the transcript?",
+    delete_error: "Error while deleting",
+    fetch_error: "Failed to load transcript"
   },
   profile: {
     title: "Profile",

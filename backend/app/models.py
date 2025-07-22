@@ -142,11 +142,24 @@ class AIPrompt(Base):
 class RecommendationLog(Base):
     __tablename__ = "recommendation_logs"
 
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(String, ForeignKey("users.id"))
-    prompt_name = Column(String)
-    prompt_input = Column(Text)
-    response = Column(Text)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    id              = Column(Integer, primary_key=True, index=True)
+    user_id         = Column(String, ForeignKey("users.id"))
+    student_name    = Column(String)
+    entry_year      = Column(Integer)
+    gpa             = Column(Float)
+    specialty       = Column(String)
+    prompt_name     = Column(String)
+    prompt_input    = Column(Text)
+    response        = Column(Text)
+    created_at      = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="recommendations")
+
+class AISettings(Base):
+    __tablename__ = "ai_settings"
+
+    id              = Column(Integer, primary_key=True)
+    model           = Column(String)
+    temperature     = Column(Float)
+    system_prompt   = Column(Text)
+    max_tokens      = Column(Integer)

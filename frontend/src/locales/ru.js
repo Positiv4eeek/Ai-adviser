@@ -13,6 +13,7 @@ export default {
     upload_curriculum: 'Загрузить учебный план',
     list_curriculum: 'Список учебных планов',
     prompts: 'AI Промпты',
+    ai_settings: "Настройки ИИ"
   },
   verify: {
     email: 'Почта',
@@ -66,7 +67,16 @@ export default {
     no_history: "Пока никаких рекомендаций нет",
     prompt_name: "Промпт",
     prompt_input: "Промпт ввод",
-    response: "Ответ ИИ"
+    response: "Ответ ИИ",
+    show_details: "Показать детали",
+    hide_details: "Скрыть детали",
+    recommended_courses: "Рекомендуемые курсы",
+    course_type_required: "Обязательная",
+    course_type_elective: "Электив",
+    course_type_repeat: "Повтор",
+    comment: "Комментарий",
+    prerequisites: "Пререквизиты",
+    json_error: "Ошибка парсинга JSON",
   },
   upload: {
     no_transcript_found: 'Транскрипт не найден',
@@ -82,6 +92,7 @@ export default {
     saved_id: "Сохранено с ID {id}",
   },
   student: {
+    id: "ID",
     intake_year: 'Год поступления',
     student_id: 'ID студента',
     transcript_detail: 'Детали транскрипта',
@@ -129,6 +140,8 @@ export default {
     curriculum_metadata: 'Данные программы',
     intake_year: 'Год набора',
     total_credits: 'Всего кредитов',
+    fetch_error: "Ошибка при загрузке данных учебного плана",
+    toggle_error: "Ошибка при обновлении доступности электива"
   },
   tabs: {
     course_short: 'курс',
@@ -146,8 +159,10 @@ export default {
     delete: "Удалить",
     actions: "Действия",
     loading: 'Загрузка...',
+    save: "Сохранить",
     download_json: 'Скачать JSON',
     no_courses: 'Нет курсов',
+    cancel: "Отмена"
   },
   admin: {
     no_users: "Нет пользователей",
@@ -166,6 +181,7 @@ export default {
     prompts:  "Промпты",
     promptName: "Название промпта",
     promptContent: "Содержание промпта",
+    promptDescription: "Описание",
     addPrompt: "Добавить промпт",
     created: "Промпт создан",
     updated: "Промпт обновлён",
@@ -177,11 +193,24 @@ export default {
     deleteError: "Ошибка при удалении промпта",
     save: "Сохранить",
     delete: "Удалить",
+    editPrompt: "Редактировать",
+    searchPrompt: "Поиск по промптам",
+    email: "Email",
+    id: "ID",
+    aiSettingsTitle: "Настройки AI",
+    model: "Модель",
+    systemPrompt: "Системный промпт",
+    temperature: "Температура",
+    maxTokens: "Максимум токенов",
+    settingsSaved: "Настройки успешно сохранены"
   },
   transcript: {
     date: 'Дата',
     no_transcripts: 'Нет транскриптов',
     all_transcripts: 'Все транскрипты',
+    confirm_delete: 'Вы уверены, что хотите удалить транскрипт?',
+    delete_error: "Ошибка при удалении",
+    fetch_error: "Не удалось загрузить транскрипт"
   },
   profile: {
     title: "Профиль",

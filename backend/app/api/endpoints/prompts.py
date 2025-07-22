@@ -20,6 +20,7 @@ class PromptCreate(PromptBase):
 
 class PromptUpdate(BaseModel):
     name: str | None = None
+    description: str | None = None
     content: str | None = None
 
 class PromptOut(PromptBase):

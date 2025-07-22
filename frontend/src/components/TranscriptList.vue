@@ -15,7 +15,7 @@
     <table class="w-full text-sm border-collapse" v-if="filteredTranscripts.length">
       <thead>
         <tr class="bg-zinc-700">
-          <th class="px-3 py-2">ID</th>
+          <th class="px-3 py-2">{{ $t('student.id') }}</th>
           <th class="px-3 py-2">{{ $t('student.student_id') }}</th>
           <th class="px-3 py-2">{{ $t('student.name') }}</th>
           <th class="px-3 py-2">{{ $t('student.faculty') }}</th>
@@ -61,6 +61,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps({ userId: String })
 const emit = defineEmits(['select'])
@@ -69,6 +70,7 @@ const transcripts = ref([])
 const loading = ref(false)
 const error = ref('')
 const search = ref('')
+const { t } = useI18n()
 
 const filteredTranscripts = computed(() => {
   const q = search.value.toLowerCase()
@@ -93,12 +95,12 @@ onMounted(async () => {
 })
 
 async function deleteTranscript(id) {
-  if (!confirm('Вы уверены, что хотите удалить транскрипт?')) return
+  if (!confirm(t('transcript.confirm_delete'))) return
   try {
     await axios.delete(`/transcript/${id}`)
     transcripts.value = transcripts.value.filter(t => t.id !== id)
   } catch (e) {
-    alert('Ошибка при удалении: ' + (e.response?.data?.detail || e.message))
+    alert(t('transcript.delete_error') + ': ' + (e.response?.data?.detail || e.message))
   }
 }
 </script>

@@ -8,6 +8,7 @@ from app.api.endpoints.transcript import router as transcript_router
 from app.api.endpoints.user import router as user_router
 from app.api.endpoints.ai import router as ai_router
 from app.api.endpoints.prompts import router as prompts_router
+from app.api.endpoints.ai_settings import router as ai_settings_router
 from app.db import Base, engine
 
 Base.metadata.create_all(bind=engine)
@@ -41,3 +42,5 @@ app.include_router(user_router)
 app.include_router(ai_router)
 
 app.include_router(prompts_router)
+
+app.include_router(ai_settings_router)

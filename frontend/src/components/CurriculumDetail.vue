@@ -183,7 +183,7 @@ async function fetchDetail() {
     data.value = res.data
   } catch (err) {
     error.value = err.response?.data?.detail || err.message
-    console.error('Ошибка при загрузке данных учебного плана:', error.value)
+    console.error(t('curriculum.fetch_error'), error.value)
   }
 }
 
@@ -194,7 +194,7 @@ async function toggleAvailability(elective) {
     })
     elective.is_available = !elective.is_available
   } catch (err) {
-    console.error('Failed to update availability', err)
+    console.error(t('curriculum.toggle_error'), err)
   }
 }
 

@@ -15,9 +15,9 @@
     <table class="w-full text-sm border-collapse" v-if="filteredUsers.length">
       <thead>
         <tr class="bg-zinc-700">
-          <th class="px-3 py-2">ID</th>
+          <th class="px-3 py-2">{{ $t('admin.id') }}</th>
           <th class="px-3 py-2">{{ $t('admin.name') }}</th>
-          <th class="px-3 py-2">Email</th>
+          <th class="px-3 py-2">{{ $t('admin.email')}}</th>
           <th class="px-3 py-2">{{ $t('admin.role') }}</th>
           <th class="px-3 py-2">{{ $t('admin.registered_at') }}</th>
           <th class="px-3 py-2 text-center">{{ $t('general.actions') }}</th>
