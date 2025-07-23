@@ -34,7 +34,7 @@ export default {
     success: "Registration successful! Redirecting to login…",
     error: "Registration failed",
     verificationSent: "A confirmation email has been sent. Please check your inbox.",
-    invalid_domain: "Registration is only allowed with @narxoz.kz email",
+    invalid_domain: "Registration is only allowed with narxoz.kz email",
     email_exists: "This email is already registered"
   },
   login: {
