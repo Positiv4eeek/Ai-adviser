@@ -44,8 +44,6 @@ services:
     container_name: my-frontend
     ports:
       - "80:80"
-    env_file:
-      - ./frontend/.env
 
   postgres:
     image: postgres:15
