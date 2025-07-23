@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   backend:
@@ -8,6 +8,8 @@ services:
       - "8000:8000"
     env_file:
       - ./backend/.env
+    depends_on:
+      - postgres
 
   frontend:
     image: darkposss/ai-adviser:frontend
@@ -16,3 +18,19 @@ services:
       - "80:80"
     env_file:
       - ./frontend/.env
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: aiadviser
+      POSTGRES_PASSWORD: supersecret
+      POSTGRES_DB: aiadviserdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
