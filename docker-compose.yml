@@ -2,7 +2,7 @@ version: '3'
 
 services:
   backend:
-    build: ./backend
+    image: darkposss/ai-adviser:backend
     container_name: my-backend
     ports:
       - "8000:8000"
@@ -10,7 +10,7 @@ services:
       - ./backend/.env
 
   frontend:
-    build: ./frontend
+    image: darkposss/ai-adviser:frontend
     container_name: my-frontend
     ports:
       - "80:80"
