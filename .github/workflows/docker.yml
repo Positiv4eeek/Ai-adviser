@@ -19,14 +19,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build backend image
-        run: docker build -t darkposss/ai-adviser-backend:latest ./backend
-
       - name: Build frontend image
-        run: docker build -t darkposss/ai-adviser-frontend:latest ./frontend
+        run: docker build -t darkposss/ai-adviser:frontend ./frontend
 
-      - name: Push backend image
-        run: docker push darkposss/ai-adviser-backend:latest
+      - name: Build backend image
+        run: docker build -t darkposss/ai-adviser:backend ./backend
 
       - name: Push frontend image
-        run: docker push darkposss/ai-adviser-frontend:latest
+        run: docker push darkposss/ai-adviser:frontend
+
+      - name: Push backend image
+        run: docker push darkposss/ai-adviser:backend
