@@ -25,15 +25,17 @@ export default {
     error: 'Verification failed'
   },
   register: {
-    firstName: 'First Name',
-    lastName: 'Last Name',
-    email: 'Email',
-    password: 'Password',
-    submit: 'Register',
-    loading: 'Loading...', 
-    success: 'Registration successful!',
-    error: 'Registration failed',
-    verificationSent: 'A verification email has been sent. Please check your inbox.'
+    firstName: "First name",
+    lastName: "Last name",
+    email: "Email",
+    password: "Password",
+    submit: "Register",
+    loading: "Loading...",
+    success: "Registration successful! Redirecting to login…",
+    error: "Registration failed",
+    verificationSent: "A confirmation email has been sent. Please check your inbox.",
+    invalid_domain: "Registration is only allowed with @narxoz.kz email",
+    email_exists: "This email is already registered"
   },
   login: {
     email: 'Email',

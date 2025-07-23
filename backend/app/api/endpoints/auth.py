@@ -44,6 +44,12 @@ class UpdateProfileRequest(BaseModel):
 @router.post("/register", status_code=201)
 async def register(data: RegisterRequest, db: Session = Depends(get_db)):
 
+    if not data.email.lower().endswith("@narxoz.kz"):
+        raise HTTPException(
+            status_code=400,
+            detail="register.invalid_domain"
+        )
+
     if db.query(User).filter(User.email == data.email).first():
         raise HTTPException(400, "Email already registered")
 

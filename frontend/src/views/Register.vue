@@ -66,6 +66,13 @@ const router    = useRouter()
 async function submit() {
   error.value = ''
   loading.value = true
+
+  if (!email.value.toLowerCase().endsWith('@narxoz.kz')) {
+    error.value = t('register.invalid_domain')
+    loading.value = false
+    return
+  }
+
   try {
     const res = await axios.post('/auth/register', {
       first_name: firstName.value,
@@ -74,6 +81,7 @@ async function submit() {
       password:   password.value,
       role:       'student'
     })
+
     if (res.status === 201) {
       success.value = true
       setTimeout(() => {
@@ -81,7 +89,8 @@ async function submit() {
       }, 1000)
     }
   } catch (e) {
-    error.value = e.response?.data?.detail || t('register.error')
+    const errorKey = e.response?.data?.detail
+    error.value = t(errorKey || 'register.error')
   } finally {
     loading.value = false
   }
