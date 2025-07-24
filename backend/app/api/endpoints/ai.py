@@ -42,6 +42,9 @@ def recommend_courses(
 
             now = datetime.now()
             current_semester = (now.year - entry_year) * 2 + (1 if now.month >= 9 else 0)
+            next_semester = current_semester + 1
+            next_semester_season = "fall" if next_semester % 2 == 1 else "spring"
+            next_study_year = (next_semester + 1) // 2
 
         if not curriculum:
             raise HTTPException(404, "No matching curriculum found")
@@ -55,6 +58,9 @@ def recommend_courses(
             gpa=gpa,
             specialty=program_name,
             current_semester=current_semester,
+            next_semester=next_semester,
+            next_semester_season=next_semester_season,
+            next_study_year=next_study_year,
             student_info=json.dumps(student_info, ensure_ascii=False, indent=2),
             transcript_courses=json.dumps(transcript_courses, ensure_ascii=False, indent=2),
             curriculum_courses=json.dumps(curriculum["courses"], ensure_ascii=False, indent=2),
