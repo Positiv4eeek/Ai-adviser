@@ -78,7 +78,8 @@ export default {
     course_type_repeat: "Қайта оқу",
     comment: "Түсініктеме",
     prerequisites: "Пререквизиттер",
-    json_error: "JSON талдау қатесі"
+    json_error: "JSON талдау қатесі",
+    loadingAi: "Жүктелуде..."
   },
   upload: {
     no_transcript_found: 'Транскрипт табылмады',

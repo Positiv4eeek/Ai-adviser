@@ -79,6 +79,7 @@ export default {
     comment: "Комментарий",
     prerequisites: "Пререквизиты",
     json_error: "Ошибка парсинга JSON",
+    loadingAi: "Загрузка..."
   },
   upload: {
     no_transcript_found: 'Транскрипт не найден',

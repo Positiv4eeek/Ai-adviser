@@ -78,7 +78,8 @@ export default {
     course_type_repeat: "Repeat",
     comment: "Comment",
     prerequisites: "Prerequisites",
-    json_error: "JSON parsing error"
+    json_error: "JSON parsing error",
+    loadingAi: "Loading..."
   },
   upload: {
     no_transcript_found: 'No transcript found',
