@@ -61,7 +61,7 @@ def recommend_courses(
             curriculum_electives=json.dumps(curriculum["electives"], ensure_ascii=False, indent=2)
         )
 
-        ai_response = ask_gpt(prompt).strip()
+        ai_response = ask_gpt(prompt, db).strip()
 
         try:
             parsed = json.loads(ai_response)
