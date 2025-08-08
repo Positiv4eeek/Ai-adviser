@@ -11,7 +11,7 @@ from app.api.endpoints.prompts import router as prompts_router
 from app.api.endpoints.ai_settings import router as ai_settings_router
 from app.db import Base, engine
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     docs_url='/docs',
