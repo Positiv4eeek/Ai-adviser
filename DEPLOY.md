@@ -1,4 +1,3 @@
-
 ## 🐳 Deployment with Docker
 
 To run the application using Docker, follow these steps:
@@ -21,13 +20,28 @@ cp frontend/.env.example frontend/.env
 
 Edit the `.env` files according to your setup.
 
+**Example `backend/.env`** (minimum required for deployment):
+
+```env
+POSTGRES_USER=aiadviser
+POSTGRES_PASSWORD=supersecret
+POSTGRES_DB=aiadviserdb
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+SECRET_KEY=your_secret_key_here
+```
+
+> **Note:**
+>
+> * If you plan to initialize the database using `dbinit`, ensure `.env` contains correct PostgreSQL credentials.
+> * `POSTGRES_HOST` must match the service name in `docker-compose.yml` (here it’s `postgres`).
+> * Change `SECRET_KEY` to a secure random value.
+
 ### 3. Create `docker-compose.yml`
 
 If it’s not already present, create a file named `docker-compose.yml` with the following content:
 
 ```yaml
-version: '3.8'
-
 services:
   backend:
     image: darkposss/ai-adviser:backend
@@ -62,7 +76,7 @@ volumes:
   postgres_data:
 ```
 
-> ✅ Ensure that `darkposss/ai-adviser:backend` and `:frontend` exist on [Docker Hub](https://hub.docker.com/repository/docker/darkposss/ai-adviser).
+> ✅ Ensure that `darkposss/ai-adviser:backend` and `darkposss/ai-adviser:frontend` exist on [Docker Hub](https://hub.docker.com/repository/docker/darkposss/ai-adviser).
 
 ### 4. Run the application
 
@@ -76,7 +90,25 @@ This will:
 * Start backend, frontend, and PostgreSQL
 * Mount data volume for database persistence
 
-### 5. Shutdown
+### 5. Initialize the database
+
+Run the following command **once** after the first deployment (or after wiping the DB) to create roles, databases, schemas, and run Alembic migrations:
+
+```bash
+docker compose run --rm backend dbinit
+```
+
+Expected output (example):
+
+```
+[entrypoint] dbinit
+Step 1/4: ensure role & db (superuser mode)…
+Step 2/4: ensure schema…
+Step 3/3: running Alembic migrations…
+DB init complete.
+```
+
+### 6. Shutdown
 
 To shut down the containers:
 
@@ -90,7 +122,7 @@ To remove volumes as well:
 docker compose down -v
 ```
 
-### 6. Connect to PostgreSQL
+### 7. Connect to PostgreSQL
 
 ```bash
 docker exec -it postgres psql -U aiadviser -d aiadviserdb
