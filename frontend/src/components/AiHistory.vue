@@ -19,7 +19,7 @@
               {{ log.specialty }} {{ log.entry_year }}
             </span>
             <span class="text-xs text-gray-500 mt-1 text-left">
-              {{ new Date(log.created_at).toLocaleString() }}
+              {{ log.dateStr }}
             </span>
           </div>
 
@@ -27,21 +27,22 @@
             class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
             @click="toggleDetails(log.id)"
           >
-            {{ expandedLogs.has(log.id) ? $t('dashboard.hide_details') : $t('dashboard.show_details') }}
+            {{ expanded[log.id] ? $t('dashboard.hide_details') : $t('dashboard.show_details') }}
           </button>
         </div>
 
         <transition name="fade">
-          <div v-if="expandedLogs.has(log.id)" class="mt-3 space-y-3">
-
-            <div v-if="isValidJSON(log.response)">
+          <div v-if="expanded[log.id]" class="mt-3 space-y-3">
+            <div v-if="log.parsedOk">
               <div class="bg-zinc-900 p-4 rounded border border-zinc-700 space-y-4">
+                <div v-if="log.parsed.courses?.length">
+                  <h4 class="text-white text-base font-semibold mb-2">
+                    {{ $t('dashboard.recommended_courses') }}
+                  </h4>
 
-                <div v-if="parsedResponse.courses?.length">
-                  <h4 class="text-white text-base font-semibold mb-2">{{ $t('dashboard.recommended_courses') }}</h4>
                   <div
-                    v-for="course in parsedResponse.courses"
-                    :key="course.code"
+                    v-for="course in log.parsed.courses"
+                    :key="course.code + course.name"
                     class="border border-zinc-700 rounded px-3 py-2 bg-zinc-800 mb-2"
                   >
                     <div class="flex justify-between items-center">
@@ -68,10 +69,10 @@
                   </div>
                 </div>
 
-                <div v-if="parsedResponse.comment">
+                <div v-if="log.parsed.comment">
                   <h4 class="text-yellow-400 font-bold mt-4 mb-1">{{ $t('dashboard.comment') }}</h4>
                   <p class="text-gray-300 text-sm leading-relaxed whitespace-pre-line border-l-4 border-yellow-400 pl-4">
-                    {{ parsedResponse.comment }}
+                    {{ log.parsed.comment }}
                   </p>
                 </div>
               </div>
@@ -80,7 +81,7 @@
             <div v-else>
               <p class="text-red-500 text-sm">{{ $t('dashboard.json_error') }}</p>
               <pre class="bg-zinc-900 p-2 rounded text-xs text-gray-400 font-mono whitespace-pre-wrap max-h-64 overflow-y-auto">
-                {{ log.response }}
+                {{ truncate(log.response, 4000) }}
               </pre>
             </div>
           </div>
@@ -91,38 +92,46 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 import axios from 'axios'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const logs = ref([])
 const loading = ref(true)
-const expandedLogs = ref(new Set())
-const parsedResponse = ref({})
+const expanded = reactive({})
 
-const toggleDetails = (id) => {
-  if (expandedLogs.value.has(id)) {
-    expandedLogs.value.delete(id)
-  } else {
-    expandedLogs.value.add(id)
+function safeParse(jsonStr) {
+  try {
+    const parsed = JSON.parse(jsonStr)
+    return { ok: true, data: parsed }
+  } catch {
+    return { ok: false, data: null }
   }
 }
 
-function isValidJSON(json) {
-  try {
-    parsedResponse.value = JSON.parse(json)
-    return true
-  } catch {
-    parsedResponse.value = {}
-    return false
-  }
+function toggleDetails(id) {
+  expanded[id] = !expanded[id]
+}
+
+function truncate(s, n = 2000) {
+  if (!s) return ''
+  return s.length > n ? s.slice(0, n) + '\n…' : s
 }
 
 onMounted(async () => {
   try {
     const res = await axios.get('/ai/recommendations/history')
-    logs.value = res.data
+    logs.value = res.data.map((log) => {
+      const { ok, data } = safeParse(log.response)
+      const dateStr = new Date(log.created_at).toLocaleString()
+      return {
+        ...log,
+        dateStr,
+        parsedOk: ok,
+        parsed: ok ? data : {}
+      }
+    })
   } catch (e) {
     console.error(e)
     logs.value = []
