@@ -19,9 +19,9 @@ class PromptCreate(PromptBase):
     pass
 
 class PromptUpdate(BaseModel):
-    name: str | None = None
+    name: str
     description: str | None = None
-    content: str | None = None
+    content: str
 
 class PromptOut(PromptBase):
     id: int
@@ -39,6 +39,19 @@ def create_prompt(data: PromptCreate, db: Session = Depends(get_db)):
         raise HTTPException(400, detail="Prompt with this name already exists")
     prompt = AIPrompt(**data.model_dump())
     db.add(prompt)
+    db.commit()
+    db.refresh(prompt)
+    return prompt
+
+@router.put("/{prompt_id}", response_model=PromptOut, dependencies=[Depends(require_admin)])
+def replace_prompt(prompt_id: int, data: PromptBase, db: Session = Depends(get_db)):
+    prompt = db.query(AIPrompt).filter_by(id=prompt_id).first()
+    if not prompt:
+        raise HTTPException(404, detail="Prompt not found")
+
+    for key, value in data.model_dump().items():
+        setattr(prompt, key, value)
+
     db.commit()
     db.refresh(prompt)
     return prompt

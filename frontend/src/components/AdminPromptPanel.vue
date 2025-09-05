@@ -163,18 +163,24 @@ function startEdit(prompt) {
 
 async function saveEdit() {
   try {
-    await axios.patch(`/admin/prompts/${editingPrompt.value.id}`, {
+    const { data } = await axios.put(`/admin/prompts/${editingPrompt.value.id}`, {
       name: editingPrompt.value.name,
       description: editingPrompt.value.description,
       content: editingPrompt.value.content
     })
-    Object.assign(originalPrompt, editingPrompt.value)
+
+    const idx = prompts.value.findIndex(p => p.id === data.id)
+    if (idx !== -1) {
+      prompts.value[idx] = data
+    }
+
     editingPrompt.value = null
     success.value = t('admin.updated')
-    setTimeout(() => success.value = '', 2000)
+    setTimeout(() => (success.value = ''), 2000)
   } catch (e) {
+    console.error(e)
     error.value = e.response?.data?.detail || t('admin.updateError')
-    setTimeout(() => error.value = '', 2000)
+    setTimeout(() => (error.value = ''), 2000)
   }
 }
 
