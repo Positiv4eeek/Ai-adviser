@@ -3,7 +3,7 @@
     <h2 class="text-xl font-bold">{{ $t('admin.prompts') }}</h2>
 
     <div v-if="error" class="text-red-500">{{ error }}</div>
-    <div v-if="success" class="text-green-500">{{ success }}</div>s
+    <div v-if="success" class="text-green-500">{{ success }}</div>
 
     <button @click="showCreateModal = true" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mb-4">
       {{ $t('admin.addPrompt') }}
