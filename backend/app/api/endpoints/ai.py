@@ -34,17 +34,32 @@ def recommend_courses(
         program_name = student_info.get("program_name")
         
         current_semester = student_info.get("current_semester")
+
         if not current_semester:
             try:
                 entry_year_int = int(entry_year)
             except Exception:
                 raise HTTPException(400, detail="Некорректный формат entry_year в student_info")
 
-            now = datetime.now()
-            current_semester = (now.year - entry_year) * 2 + (1 if now.month >= 9 else 0)
-            next_semester = current_semester + 1
-            next_semester_season = "fall" if next_semester % 2 == 1 else "spring"
-            next_study_year = (next_semester + 1) // 2
+            semesters_in_transcript = [
+                c.get("semester_number")
+                for c in transcript_courses
+                if c.get("semester_number") is not None
+            ]
+
+            if semesters_in_transcript:
+                current_semester = max(semesters_in_transcript)
+            else:
+                now = datetime.now()
+                current_semester = (now.year - entry_year_int) * 2
+                if 9 <= now.month <= 12:
+                    current_semester += 1
+                else:
+                    current_semester += 2
+
+        next_semester = current_semester + 1
+        next_semester_season = "fall" if next_semester % 2 == 1 else "spring"
+        next_study_year = (next_semester + 1) // 2
 
         if not curriculum:
             raise HTTPException(404, "No matching curriculum found")
